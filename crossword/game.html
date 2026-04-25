@@ -1,0 +1,2238 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ô Chữ Lịch Sử Việt Nam | Thống Nhất Đất Nước</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,700&family=Barlow:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <!-- html2canvas for screenshot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --red: #e8001a;
+            --red-deep: #a00010;
+            --gold: #ffd84d;
+            --gold-mid: #f0a800;
+            --gold-deep: #c47800;
+            --bg: #1a0505;
+            --text-main: #fff8e8;
+            --text-muted: #d4a84b;
+            --text-dim: #8a6a30;
+            --b-gold: rgba(240, 168, 0, .35);
+            --b-red: rgba(232, 0, 26, .4);
+            --glow-gold: 0 0 20px rgba(255, 200, 0, .5);
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: 'Barlow', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            background-image: radial-gradient(ellipse 100% 55% at 50% 0%, rgba(200, 0, 20, .4) 0%, transparent 55%),
+                radial-gradient(ellipse 55% 80% at 0% 100%, rgba(140, 0, 10, .22) 0%, transparent 55%),
+                radial-gradient(ellipse 55% 80% at 100% 100%, rgba(140, 0, 10, .22) 0%, transparent 55%);
+            background-attachment: fixed
+        }
+
+        /* ── FLAG RIBBON ── */
+        .flag-ribbon {
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--red-deep), var(--red), var(--red-deep));
+            box-shadow: 0 0 30px rgba(232, 0, 26, .95), 0 2px 0 rgba(255, 180, 0, .3);
+            position: relative;
+            z-index: 20
+        }
+
+        /* ── NAME SCREEN ── */
+        #name-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9000;
+            background-image: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200, 0, 20, .5) 0%, transparent 60%)
+        }
+
+        .name-box {
+            background: rgba(28, 5, 2, .95);
+            border: 1px solid var(--b-gold);
+            border-radius: 8px;
+            padding: 3rem 2.5rem;
+            text-align: center;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: 0 0 80px rgba(232, 0, 26, .3), 0 0 160px rgba(0, 0, 0, .8);
+            animation: modalIn .7s cubic-bezier(.34, 1.56, .64, 1) both;
+            position: relative;
+            overflow: hidden
+        }
+
+        .name-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--red), var(--gold), var(--red));
+            box-shadow: 0 0 20px rgba(255, 200, 0, .6)
+        }
+
+        .name-flag {
+            font-size: 4rem;
+            margin-bottom: .5rem;
+            animation: flagWave 1.5s ease-in-out infinite alternate
+        }
+
+        @keyframes flagWave {
+            from {
+                transform: rotate(-5deg) scale(1)
+            }
+
+            to {
+                transform: rotate(5deg) scale(1.1)
+            }
+        }
+
+        .name-badge {
+            display: inline-block;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: .7rem;
+            font-weight: 800;
+            letter-spacing: 5px;
+            color: var(--red);
+            background: rgba(232, 0, 26, .13);
+            border: 1px solid rgba(232, 0, 26, .46);
+            padding: .25rem 1rem;
+            border-radius: 2px;
+            margin-bottom: .8rem;
+            text-transform: uppercase
+        }
+
+        .name-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: .3rem;
+            background: linear-gradient(180deg, #fffbe8 0%, var(--gold) 50%, var(--gold-deep) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text
+        }
+
+        .name-sub {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: .85rem;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            margin-bottom: 2rem
+        }
+
+        .name-box-logos {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .name-box-logos img {
+            height: 45px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+        }
+
+        .name-box-footer {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            color: var(--gold-mid);
+            margin-top: 20px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .name-label {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: .75rem;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: .6rem;
+            display: block;
+            text-align: left
+        }
+
+        .name-input {
+            width: 100%;
+            background: rgba(255, 200, 50, .06);
+            border: 1px solid var(--b-gold);
+            border-radius: 4px;
+            padding: .9rem 1.2rem;
+            color: var(--text-main);
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.15rem;
+            letter-spacing: 2px;
+            outline: none;
+            margin-bottom: 1.5rem;
+            transition: border-color .2s, box-shadow .2s
+        }
+
+        .name-input:focus {
+            border-color: var(--gold-mid);
+            box-shadow: 0 0 0 2px rgba(255, 216, 77, .2)
+        }
+
+        .name-input::placeholder {
+            color: var(--text-dim);
+            font-size: .95rem;
+            font-family: 'Barlow', sans-serif;
+            letter-spacing: 1px
+        }
+
+        .name-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--red), var(--red-deep));
+            border: 1px solid rgba(255, 80, 60, .3);
+            padding: .95rem 2rem;
+            border-radius: 3px;
+            color: var(--gold);
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all .22s;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .6rem
+        }
+
+        .name-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(232, 0, 26, .6)
+        }
+
+        .name-btn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+            transform: none
+        }
+
+        .name-tip {
+            font-size: .72rem;
+            color: var(--text-dim);
+            margin-top: 1rem;
+            letter-spacing: .5px
+        }
+
+        /* ── CHEAT WARNING OVERLAY ── */
+        #cheat-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .97);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            text-align: center;
+            padding: 2rem;
+            backdrop-filter: blur(20px)
+        }
+
+        #cheat-overlay.show {
+            display: flex
+        }
+
+        .cheat-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            animation: shake .4s ease infinite
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0)
+            }
+
+            25% {
+                transform: translateX(-12px)
+            }
+
+            75% {
+                transform: translateX(12px)
+            }
+        }
+
+        .cheat-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--red);
+            text-shadow: 0 0 40px rgba(232, 0, 26, .8);
+            margin-bottom: .75rem;
+            letter-spacing: 2px
+        }
+
+        .cheat-sub {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            margin-bottom: 2.5rem;
+            max-width: 400px;
+            line-height: 1.7
+        }
+
+        .cheat-bar {
+            width: 260px;
+            height: 6px;
+            background: rgba(255, 255, 255, .1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: .5rem
+        }
+
+        .cheat-bar-fill {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--red), #ff6a3d);
+            border-radius: 4px;
+            transition: width .1s linear
+        }
+
+        .cheat-bar-label {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: .78rem;
+            letter-spacing: 2px;
+            color: var(--text-dim)
+        }
+
+        /* ── HEADER ── */
+        .app-header {
+            width: 100%;
+            padding: 2rem 2rem 1.5rem;
+            text-align: center;
+            animation: fadeDown .8s ease both
+        }
+
+        .header-badge {
+            display: inline-block;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: 5px;
+            color: var(--gold-mid);
+            background: rgba(240, 168, 0, .13);
+            border: 1px solid rgba(240, 168, 0, .42);
+            padding: .3rem 1.4rem;
+            border-radius: 2px;
+            margin-bottom: .9rem
+        }
+
+        .app-title {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: .6rem
+        }
+
+        .title-line-1 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            font-size: 1.4rem;
+            letter-spacing: 10px;
+            color: var(--gold-mid);
+            opacity: .9
+        }
+
+        .title-line-2 {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: clamp(2.4rem, 5vw, 4.2rem);
+            letter-spacing: 4px;
+            background: linear-gradient(180deg, #fffbe8 0%, var(--gold) 45%, var(--gold-deep) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 2px 16px rgba(255, 200, 0, .45))
+        }
+
+        .header-logos {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .header-logos img {
+            height: 40px;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+        }
+
+        .app-subtitle {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: .9rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #ff3a4a;
+            text-shadow: 0 0 18px rgba(255, 50, 60, .75);
+            margin-bottom: .6rem;
+            text-transform: uppercase;
+        }
+
+        .player-greeting {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: .95rem;
+            letter-spacing: 3px;
+            color: var(--text-muted);
+            margin-bottom: .8rem
+        }
+
+        .player-name-display {
+            color: var(--gold);
+            font-weight: 700
+        }
+
+        .header-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            max-width: 360px;
+            margin: 0 auto
+        }
+
+        .header-divider span:not(.ds) {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(240, 168, 0, .4), transparent)
+        }
+
+        .ds {
+            color: var(--gold-mid);
+            font-size: .85rem
+        }
+
+        /* ── STATS ── */
+        .stats-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.75rem;
+            animation: fadeUp .8s .25s ease both;
+            flex-wrap: wrap;
+            justify-content: center
+        }
+
+        .stat-item {
+            background: rgba(40, 10, 5, .92);
+            border: 1px solid var(--b-gold);
+            padding: .6rem 1rem;
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 100px;
+            gap: .1rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, .5), inset 0 1px 0 rgba(255, 200, 0, .1)
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--red), var(--gold-mid), var(--red))
+        }
+
+        .stat-icon {
+            font-size: .95rem
+        }
+
+        .stat-label {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: .62rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-muted)
+        }
+
+        .stat-value {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1
+        }
+
+        .stat-total {
+            font-size: 1rem;
+            color: var(--text-dim)
+        }
+
+        .stat-status {
+            font-size: .9rem;
+            color: #5dff8a
+        }
+
+        /* ── GAME ── */
+        .game-container {
+            display: flex;
+            gap: 1.5rem;
+            width: 98%;
+            max-width: 1400px;
+            /* Increased for row layout */
+            margin-bottom: 2.5rem;
+            animation: fadeUp .8s .45s ease both
+        }
+
+        .grid-wrapper {
+            flex: 1;
+            /* Allow grid to take remaining space */
+            background: rgba(28, 5, 2, .82);
+            border: 1px solid var(--b-gold);
+            border-radius: 6px;
+            padding: 1rem;
+            overflow: auto;
+            box-shadow: 0 0 60px rgba(0, 0, 0, .6), inset 0 0 80px rgba(0, 0, 0, .4)
+        }
+
+        .cell.row-active {
+            background: rgba(240, 168, 0, .1) !important;
+            border-color: rgba(240, 168, 0, .4) !important;
+        }
+
+        .grid-header {
+            width: 100%;
+            margin-bottom: 1rem
+        }
+
+        .grid-label {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: .68rem;
+            letter-spacing: 3px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase
+        }
+
+        .crossword-grid {
+            display: grid;
+            gap: 5px;
+            position: relative;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .cell {
+            background: rgba(255, 200, 50, .07);
+            border: 1px solid rgba(240, 168, 0, .28);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .15s ease;
+            position: relative;
+            color: transparent;
+            user-select: none;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            box-sizing: border-box;
+        }
+
+        .cell:hover {
+            background: rgba(240, 168, 0, .15);
+            border-color: var(--gold-mid);
+            transform: translateY(-1px)
+        }
+
+        .cell.active {
+            background: rgba(240, 168, 0, .2) !important;
+            border-color: var(--gold) !important;
+            box-shadow: 0 0 0 2px rgba(255, 216, 77, .4), var(--glow-gold) !important;
+            color: var(--gold) !important;
+            z-index: 10
+        }
+
+        .cell.filled {
+            color: var(--text-main)
+        }
+
+        .cell.active.filled {
+            color: var(--gold) !important
+        }
+
+        .cell.correct {
+            background: linear-gradient(145deg, #0b3318, #165f2a) !important;
+            border-color: #2d9c50 !important;
+            color: #7fffa0 !important;
+            box-shadow: inset 0 0 8px rgba(0, 180, 60, .2) !important;
+            animation: popIn .3s cubic-bezier(.175, .885, .32, 1.275) both
+        }
+
+        .cell.key {
+            background: rgba(232, 0, 26, .09);
+            border-color: rgba(232, 0, 26, .42)
+        }
+
+        .cell.key::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border: 1.5px solid rgba(232, 0, 26, .38);
+            border-radius: 6px;
+            pointer-events: none
+        }
+
+        .cell.key.correct {
+            background: linear-gradient(160deg, #6e3c00, #c47800, #ffd84d, #f0a800, #7a4400) !important;
+            color: #3a1800 !important;
+            border: 2px solid #c47800 !important;
+            font-weight: 700;
+            text-shadow: 0 1px 0 rgba(255, 255, 180, .5);
+            box-shadow: 0 0 22px rgba(255, 200, 0, .85), 0 0 44px rgba(255, 200, 0, .4), inset 0 1px 2px rgba(255, 255, 200, .6) !important;
+            animation: popIn .4s cubic-bezier(.175, .885, .32, 1.275) both;
+            z-index: 5
+        }
+
+        .cell.key.correct .cell-num {
+            color: #5a2800;
+            opacity: .7
+        }
+
+        .cell-num {
+            position: absolute;
+            top: 2px;
+            left: 3px;
+            font-family: 'Barlow', sans-serif;
+            font-size: .58rem;
+            color: var(--text-dim);
+            font-weight: 700;
+            line-height: 1
+        }
+
+        /* ── CLUE PANEL ── */
+        .clue-panel {
+            width: 420px;
+            background: rgba(28, 5, 2, .88);
+            border: 1px solid var(--b-gold);
+            border-radius: 6px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            max-height: 800px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, .5)
+        }
+
+        .clue-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: .95rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold-mid);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            padding-bottom: .75rem;
+            border-bottom: 1px solid var(--b-gold)
+        }
+
+        .clue-list {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: .5rem;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(240, 168, 0, .3) transparent
+        }
+
+        .clue-list::-webkit-scrollbar {
+            width: 4px
+        }
+
+        .clue-list::-webkit-scrollbar-thumb {
+            background: rgba(240, 168, 0, .3);
+            border-radius: 4px
+        }
+
+        .clue-item {
+            background: rgba(255, 200, 50, .04);
+            padding: .85rem .9rem;
+            border-radius: 4px;
+            margin-bottom: .55rem;
+            cursor: pointer;
+            transition: all .18s;
+            border: 1px solid transparent;
+            display: flex;
+            gap: .8rem;
+            align-items: flex-start
+        }
+
+        .clue-item:hover {
+            background: rgba(240, 168, 0, .1);
+            border-color: var(--b-gold)
+        }
+
+        .clue-item.active {
+            background: rgba(232, 0, 26, .13);
+            border-color: rgba(232, 0, 26, .55);
+            box-shadow: inset 3px 0 0 var(--red)
+        }
+
+        .clue-item.solved {
+            opacity: .36;
+            pointer-events: none
+        }
+
+        .clue-id {
+            font-family: 'Oswald', sans-serif;
+            font-size: .72rem;
+            font-weight: 700;
+            background: var(--red);
+            color: var(--gold);
+            width: 24px;
+            height: 24px;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+            box-shadow: 0 0 8px rgba(232, 0, 26, .5)
+        }
+
+        .clue-text {
+            font-family: 'Barlow', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.55;
+            color: var(--text-main);
+            display: none;
+            /* Hide by default */
+        }
+
+        .clue-item.active .clue-text {
+            display: block;
+            /* Show when active */
+            animation: fadeIn 0.3s ease;
+        }
+
+        .footer-org {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            color: var(--gold-mid);
+            margin-top: 15px;
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 1024px) {
+            .game-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .clue-panel {
+                width: 100%;
+                max-height: none;
+            }
+
+            .grid-wrapper {
+                width: 100%;
+                padding: 1rem 0.5rem;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .crossword-grid {
+                min-width: 1000px;
+                /* Ensure cells are readable/tappable */
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .app-header {
+                padding: 1.5rem 1rem;
+            }
+
+            .header-logos img {
+                height: 35px;
+            }
+
+            .app-title .title-line-1 {
+                font-size: 1.1rem;
+            }
+
+            .app-title .title-line-2 {
+                font-size: 1.6rem;
+            }
+
+            .stat-item {
+                min-width: 85px;
+                padding: 0.5rem;
+            }
+
+            .stat-value {
+                font-size: 1.2rem;
+            }
+
+            .stat-label {
+                font-size: 0.55rem;
+                letter-spacing: 1px;
+            }
+
+            .footer-org {
+                font-size: 0.9rem;
+            }
+
+            .footer-tips {
+                font-size: 0.7rem;
+            }
+        }
+
+        /* ── FOOTER ── */
+        .app-footer {
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: fadeUp .8s .7s ease both
+        }
+
+        .footer-tips {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .6rem;
+            flex-wrap: wrap;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: .78rem;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+            margin-bottom: .4rem
+        }
+
+        .tip-dot {
+            color: rgba(240, 168, 0, .4)
+        }
+
+        .footer-copy {
+            font-size: .7rem;
+            color: var(--text-dim);
+            letter-spacing: .5px
+        }
+
+        /* ── WIN MODAL ── */
+        .win-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 0, 0, .93);
+            backdrop-filter: blur(14px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 1rem
+        }
+
+        .win-overlay.show {
+            display: flex
+        }
+
+        .win-modal {
+            position: relative;
+            background: linear-gradient(160deg, #180400, #250800, #180400);
+            border: 1px solid rgba(240, 168, 0, .42);
+            padding: 3rem 3rem 2.5rem;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 580px;
+            width: 100%;
+            box-shadow: 0 0 80px rgba(232, 0, 26, .45), 0 0 160px rgba(0, 0, 0, .9);
+            animation: modalIn .7s cubic-bezier(.34, 1.56, .64, 1) both;
+            overflow: hidden
+        }
+
+        .win-modal::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--red), var(--gold), var(--red));
+            box-shadow: 0 0 20px rgba(255, 200, 0, .6)
+        }
+
+        .fireworks-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0
+        }
+
+        .win-flag {
+            font-size: 3.5rem;
+            margin-bottom: .6rem;
+            animation: flagWave 1s ease-in-out infinite alternate;
+            position: relative;
+            z-index: 1
+        }
+
+        .win-badge {
+            position: relative;
+            z-index: 1;
+            display: inline-block;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: .7rem;
+            font-weight: 800;
+            letter-spacing: 5px;
+            color: var(--red);
+            background: rgba(232, 0, 26, .13);
+            border: 1px solid rgba(232, 0, 26, .46);
+            padding: .25rem 1rem;
+            border-radius: 2px;
+            margin-bottom: .6rem;
+            text-transform: uppercase
+        }
+
+        .win-title {
+            position: relative;
+            z-index: 1;
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: .4rem;
+            letter-spacing: 1px
+        }
+
+        .win-player {
+            position: relative;
+            z-index: 1;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            color: var(--gold);
+            margin-bottom: 1rem
+        }
+
+        .win-message {
+            position: relative;
+            z-index: 1;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: .68rem;
+            letter-spacing: 4px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: .4rem
+        }
+
+        .win-keyword-box {
+            position: relative;
+            z-index: 1;
+            background: rgba(140, 0, 10, .2);
+            border: 1px solid var(--b-gold);
+            padding: 1.1rem 2rem;
+            border-radius: 4px;
+            margin-bottom: 1.2rem
+        }
+
+        .win-keyword {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-mid), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 12px rgba(255, 200, 0, .6))
+        }
+
+        .win-time-box {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            padding: .7rem 1.5rem;
+            background: rgba(255, 200, 50, .05);
+            border: 1px solid var(--b-gold);
+            border-radius: 4px
+        }
+
+        .win-time-label {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: .78rem;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            text-transform: uppercase
+        }
+
+        .win-time-value {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold)
+        }
+
+        .win-quote {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1.5rem;
+            padding: .9rem 1.25rem;
+            border-left: 3px solid var(--red);
+            text-align: left;
+            background: rgba(232, 0, 26, .07);
+            border-radius: 0 4px 4px 0
+        }
+
+        .win-quote em {
+            display: block;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--text-main);
+            margin-bottom: .3rem
+        }
+
+        .win-quote span {
+            font-size: .72rem;
+            color: var(--text-muted);
+            letter-spacing: 1px
+        }
+
+        .win-actions {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            gap: .8rem;
+            flex-wrap: wrap;
+            justify-content: center
+        }
+
+
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--red), var(--red-deep));
+            border: 1px solid rgba(255, 80, 60, .3);
+            padding: .85rem 2rem;
+            border-radius: 3px;
+            color: var(--gold);
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all .22s;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(232, 0, 26, .6)
+        }
+
+        .submit-btn:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+            transform: none
+        }
+
+        .submit-btn.capturing {
+            animation: pulse .6s ease infinite alternate
+        }
+
+        @keyframes pulse {
+            from {
+                opacity: .7
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        /* ── SCREENSHOT FLASH ── */
+        .screenshot-flash {
+            position: fixed;
+            inset: 0;
+            background: #fff;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 8888;
+            transition: opacity .15s ease
+        }
+
+        .screenshot-flash.flash {
+            opacity: .9
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: scale(.7);
+                opacity: 0
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1
+            }
+        }
+
+        @keyframes goldShimmer {
+            0% {
+                filter: brightness(1);
+                box-shadow: 0 0 20px rgba(255, 200, 0, .8)
+            }
+
+            100% {
+                filter: brightness(1.28);
+                box-shadow: 0 0 40px rgba(255, 200, 0, 1)
+            }
+        }
+
+        @keyframes modalIn {
+            from {
+                transform: scale(.6) translateY(40px);
+                opacity: 0
+            }
+
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1
+            }
+        }
+
+        /* ── RESPONSIVE ── */
+        @media(max-width:1100px) {
+            .game-container {
+                flex-direction: column
+            }
+
+            .clue-panel {
+                width: 100%;
+                max-height: 460px
+            }
+        }
+
+        @media(max-width:600px) {
+            .title-line-2 {
+                font-size: 2rem;
+                letter-spacing: 1px
+            }
+
+            .win-modal {
+                padding: 2rem 1.25rem
+            }
+
+            .win-keyword {
+                font-size: 1.1rem;
+                letter-spacing: 2px
+            }
+
+            .cell {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem
+            }
+        }
+
+        .clue-panel {
+            max-width: 40%
+        }
+
+        .clue-text {
+            font-size: 1rem;
+            line-height: 1.65
+        }
+
+        .clue-title {
+            font-size: 1.1rem
+        }
+
+        .stat-value {
+            font-size: 1.6rem
+        }
+
+        .grid-wrapper {
+            overflow: hidden
+        }
+
+        @media(max-width:1000px) {
+            .game-container {
+                flex-direction: column
+            }
+
+            .clue-panel {
+                width: 100%;
+                max-width: 100%
+            }
+        }
+
+        /* ================================= */
+        /* Container bao quanh */
+        .custom-select-container {
+            position: relative;
+            width: 100%;
+        }
+
+        /* Tùy chỉnh ô Input */
+        #input-work {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ffd700;
+            /* Màu vàng đồng lịch sử */
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        #input-work:focus {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Danh sách sổ xuống */
+        .select-dropdown {
+            position: absolute;
+            top: calc(100% + 5px);
+            left: 0;
+            width: 100%;
+            max-height: 250px;
+            /* Chiều cao tối đa */
+            overflow-y: auto;
+            background: #2c0a0a;
+            /* Màu đỏ sậm tiệp với game */
+            border: 1px solid #ffd700;
+            border-radius: 8px;
+            z-index: 1000;
+            display: none;
+            /* Ẩn khi chưa click */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Từng mục trong danh sách */
+        .select-item {
+            padding: 10px 15px;
+            color: #eee;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+            line-height: 1.4;
+            font-size: 0.95rem;
+            word-wrap: break-word;
+            /* Hiển thị hết chữ dài */
+            transition: background 0.2s;
+        }
+
+        .select-item:hover {
+            background: #ffd700;
+            color: #000;
+        }
+
+        /* Thanh cuộn (scrollbar) cho sang */
+        .select-dropdown::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .select-dropdown::-webkit-scrollbar-thumb {
+            background: #ffd700;
+            border-radius: 10px;
+        }
+
+        /* =============================== */
+        .crossword-cell {
+            width: 100%;
+            /* Đi theo độ rộng của cột fr */
+            aspect-ratio: 1 / 1;
+            /* Luôn giữ tỉ lệ vuông */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+
+            /* Dùng clamp để font chữ tự nhỏ lại trên màn hình bé */
+            font-size: clamp(10px, 2vw, 20px);
+
+            border: 1px solid var(--b-gold);
+            box-sizing: border-box;
+        }
+
+        /* ==================================================== */
+        #cheat-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.98);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            text-align: center;
+            padding: 2rem;
+            backdrop-filter: blur(15px);
+        }
+
+        .cheat-box {
+            max-width: 500px;
+            padding: 30px;
+            border: 2px solid var(--red);
+            background: #1a0505;
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(232, 0, 26, 0.5);
+        }
+
+        /* Nút quay lại chơi */
+        .resume-btn {
+            margin-top: 20px;
+            background: var(--gold);
+            color: #000;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .resume-btn:hover {
+            background: #fff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SCREENSHOT FLASH -->
+    <div class="screenshot-flash" id="ss-flash"></div>
+
+    <!-- NAME SCREEN -->
+    <div id="name-screen">
+        <div class="name-box">
+            <div class="name-box-logos">
+                <img src="image/Logo-Doan-Thanh-NIen-Cong-San-Ho-Chi-Minh-1.webp" alt="Đoàn">
+                <img src="image/Biểu_trưng_Hội_Liên_hiệp_Thanh_niên_Việt_Nam.svg.png" alt="Hội">
+                <img src="image/Logo-Doi-Thieu-nien-Tien-phong-Ho-Chi-Minh.webp" alt="Đội">
+            </div>
+            <div class="name-box-footer">PHƯỜNG XUÂN HƯƠNG - ĐÀ LẠT</div>
+
+            <div class="name-badge">30/4/1975 · 30/4/2026</div>
+            <div class="name-title">HÀO KHÍ 30/4</div>
+            <div class="name-sub">NON SÔNG LIỀN MỘT DẢI</div>
+            <label class="name-label">Họ và tên người chơi</label>
+            <input class="name-input" id="input-name" type="text" placeholder="Nhập họ và tên của bạn...">
+
+            <!-- <label class="name-label">Đơn vị công tác</label>
+            <input class="name-input" id="input-work" type="text" placeholder="Nhập tên đơn vị..."> -->
+            <div class="name-field-group">
+                <label class="name-label">Đơn vị công tác</label>
+                <div class="custom-select-container" id="work-container">
+                    <input class="name-input" id="input-work" type="text" placeholder="Gõ để tìm nhanh đơn vị..."
+                        autocomplete="off">
+                    <div class="select-dropdown" id="work-dropdown">
+                        <!-- Danh sách sẽ tự đổ vào đây -->
+                    </div>
+                </div>
+            </div>
+            <!-- Các tùy chọn sẽ được JavaScript tự động thêm vào -->
+            </datalist>
+            <label class="name-label">Số điện thoại</label>
+            <input class="name-input" id="input-phone" type="text" placeholder="Nhập số điện thoại...">
+            <button class="name-btn" id="start-btn" onclick="startGame()" disabled>
+                <span>⭐</span> BẮT ĐẦU CHƠI
+            </button>
+            <p class="name-tip">Trò chơi sẽ chạy toàn màn hình · Không được gian lận!</p>
+        </div>
+    </div>
+
+    <!-- CHEAT WARNING -->
+    <div id="cheat-overlay">
+        <div class="cheat-box">
+            <div class="cheat-icon">⚠️</div>
+            <h2 id="cheat-title" style="color: var(--red); margin-bottom: 10px;">CẢNH BÁO GIAN LẬN!</h2>
+            <p id="cheat-msg" style="margin-bottom: 20px; line-height: 1.6;">
+                Bạn vừa rời khỏi màn hình game (Alt+Tab hoặc thoát Fullscreen).<br>
+                Hành động này bị coi là vi phạm quy chế.
+            </p>
+            <p style="color: var(--gold); font-weight: bold;">Lần vi phạm: <span id="violation-count">0</span>/2</p>
+            <button class="resume-btn" id="resume-btn" onclick="resumeGame()">Tôi cam kết không tái phạm</button>
+        </div>
+    </div>
+
+    <!-- FLAG -->
+    <div class="flag-ribbon"></div>
+
+    <!-- HEADER -->
+    <header class="app-header">
+        <div class="header-logos">
+            <img src="image/Logo-Doan-Thanh-NIen-Cong-San-Ho-Chi-Minh-1.webp" alt="Đoàn">
+            <img src="image/Biểu_trưng_Hội_Liên_hiệp_Thanh_niên_Việt_Nam.svg.png" alt="Hội">
+            <img src="image/Logo-Doi-Thieu-nien-Tien-phong-Ho-Chi-Minh.webp" alt="Đội">
+        </div>
+        <div class="footer-org">PHƯỜNG XUÂN HƯƠNG - ĐÀ LẠT</div>
+
+        <div class="header-badge">30/4 · 1975 · 2026</div>
+        <h1 class="app-title">
+            <span class="title-line-1">HÀO KHÍ 30 - 4</span>
+            <span class="title-line-2">NON SÔNG LIỀN MỘT DẢI</span>
+        </h1>
+        <p class="app-subtitle">THỐNG NHẤT ĐẤT NƯỚC · KỶ NIỆM 51 NĂM</p>
+        <p class="player-greeting" id="player-greeting" style="display:none">Xin chào, <span class="player-name-display"
+                id="player-name-display"></span> 👋</p>
+        <div class="header-divider"><span></span><span class="ds">✦</span><span></span></div>
+    </header>
+
+    <div class="stats-bar">
+        <div class="stat-item"><span class="stat-icon">⏱</span><span class="stat-label">Thời gian</span><span
+                class="stat-value" id="timer">00:00</span></div>
+        <div class="stat-item"><span class="stat-icon">🇻🇳</span><span class="stat-label">Tiến độ</span><span
+                class="stat-value"><span id="solved-count">0</span><span class="stat-total">/16</span></span></div>
+        <div class="stat-item"><span class="stat-icon">🏅</span><span class="stat-label">Trạng thái</span><span
+                class="stat-value stat-status" id="status-text">Đang chơi</span></div>
+        <div class="stat-item music-toggle" onclick="toggleMusic()" style="cursor:pointer">
+            <span class="stat-icon" id="music-icon">🔊</span>
+            <span class="stat-label">Âm nhạc</span>
+            <span class="stat-value" id="music-status" style="font-size: 1rem; color: #5dff8a">BẬT</span>
+        </div>
+    </div>
+
+    <main class="game-container" id="game-main">
+        <section class="grid-wrapper">
+            <div class="grid-header"><span class="grid-label">⬛ BẢNG Ô CHỮ</span></div>
+            <div class="crossword-grid" id="crossword-grid"></div>
+        </section>
+        <section class="clue-panel">
+            <h2 class="clue-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                </svg>
+                CÂU HỎI LỊCH SỬ
+            </h2>
+            <div class="clue-list" id="clues-list"></div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <div class="footer-tips">
+            <span>⌨ Gõ phím để điền</span><span class="tip-dot">·</span>
+            <span>⌫ Backspace để xóa</span><span class="tip-dot">·</span>
+            <span>↵ Enter để kiểm tra</span>
+        </div>
+        <p class="footer-copy">Kỷ niệm 51 năm Ngày Giải phóng miền Nam 30/4/1975 – 30/4/2026</p>
+    </footer>
+
+    <!-- AUDIO -->
+    <audio id="bg-music" loop>
+        <source src="video/sound/Tiến Minh - Đường Lên Phía Trước.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="sfx-correct">
+        <source src="video/dap an dung.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- HIDDEN INPUT FOR MOBILE KEYBOARD -->
+    <input type="text" id="mobile-keyboard-input"
+        style="position: fixed; top: -100px; left: -100px; opacity: 0; pointer-events: none; height: 0; width: 0;">
+
+    <!-- WIN MODAL -->
+    <div class="win-overlay" id="win-modal">
+        <div class="win-modal" id="win-modal-inner">
+            <canvas class="fireworks-canvas" id="fireworks"></canvas>
+            <div class="win-flag">🇻🇳</div>
+            <div class="win-badge">CHIẾN THẮNG</div>
+            <h2 class="win-title">Giải mã thành công!</h2>
+            <p class="win-player" id="win-player-name"></p>
+            <p class="win-message">Từ khóa bí mật</p>
+            <div class="win-keyword-box"><span class="win-keyword">THỐNG NHẤT ĐẤT NƯỚC</span></div>
+            <div class="win-time-box">
+                <span class="win-time-label">⏱ Thời gian hoàn thành</span>
+                <span class="win-time-value" id="final-time">00:00</span>
+            </div>
+            <div class="win-quote">
+                <em>"Không có gì quý hơn độc lập, tự do."</em>
+                <span>— Chủ tịch Hồ Chí Minh</span>
+            </div>
+            <div class="win-actions">
+
+                <button class="submit-btn" id="submit-btn" onclick="submitResult()">📸 Nộp bài</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cheatCount = 0; // Biến đếm số lần vi phạm
+        let isPaused = false; // Biến kiểm soát trạng thái tạm dừng
+        const workUnits = [
+            "THPT Chuyên Thăng Long", "THPT Trần Phú", "THPT Bùi Thị Xuân", "THCS&THPT Tây Sơn", "TT Giaó Dục Thường Xuyên Đà Lạt",
+            "Đoàn Thanh niên Công an phường", "Chi đoàn Quân sự", "Chi đoàn Paster", "Chi đoàn Trung tâm Y Tế",
+            "Chi đoàn Ngân hàng TMCP Đầu tư và Phát triển Việt Nam", "Chi đoàn Ngân hàng Co-op bank (Hợp tác CN Lâm Đồng)",
+            "Chi đoàn Công ty cổ phần Dịch vụ Đô thị Đà Lạt", "Chi đoàn cơ sở Y tế khu vực Đà Lạt",
+            "Chi đoàn Công ty cổ phần Sài Gòn - Đà Lạt", "Chi đoàn giáo viên Mầm Non 2", "Chi đoàn giáo viên Mầm Non 4",
+            "Chi đoàn giáo viên Mầm Non 10", "Chi đoàn giáo viên TH Nam Thành", "Chi đoàn giáo viên TH Lê Qúy Đôn",
+            "Chi đoàn giáo viên TH Trưng Vương", "Liên Chi đoàn giáo viên TH Hùng Vương và TH Đa Lợi",
+            "Chi đoàn giáo viên TH Mê Linh", "Chi đoàn giáo viên TH An Dương Vương", "Chi đoàn giáo viên Mầm Non Anh Đào",
+            "Chi đoàn giáo viên THCS Quang Trung", "Chi đoàn giáo viên THCS Nguyễn Du", "Chi đoàn giáo viên THCS Phan Chu Trinh",
+            "Chi đoàn Thanh niên Tổ dân phố Đồi Dinh", "Chi đoàn Thanh niên Tổ dân phố Nguyễn Văn Trỗi.",
+            "Chi đoàn Thanh niên Tổ dân phố Phan Bội Châu.", "Chi đoàn Thanh niên Tổ dân phố Đoàn Kết.",
+            "Chi đoàn Thanh niên Tổ dân phố Hòa Bình.", "Chi đoàn Thanh niên Tổ dân phố Nam Kỳ Khởi Nghĩa.",
+            "Chi đoàn Thanh niên Tổ dân phố Ánh Sáng.", "Chi đoàn Thanh niên Tổ dân phố Đa Hòa.",
+            "Chi đoàn Thanh niên Tổ dân phố Mimosa.", "Chi đoàn Thanh niên Tổ dân phố Hàm Nghi.",
+            "Chi đoàn Thanh niên Tổ dân phố Trưng Vương.", "Chi đoàn Thanh niên Tổ dân phố Bùi Thị Xuân 1.",
+            "Chi đoàn Thanh niên Tổ dân phố Lý Tự Trọng.", "Chi đoàn Thanh niên Tổ dân phố Võ Thị Sáu.",
+            "Chi đoàn Thanh niên Tổ dân phố Nguyễn Thị Nghĩa.", "Chi đoàn Thanh niên Tổ dân phố Bùi Thị Xuân 2.",
+            "Chi đoàn Thanh niên Tổ dân phố Tô Ngọc Vân.", "Chi đoàn Thanh niên Tổ dân phố Phan Đình Phùng 1.",
+            "Chi đoàn Thanh niên Tổ dân phố Phan Đình Phùng 2.", "Chi đoàn Thanh niên Tổ dân phố Nguyễn Công Trứ.",
+            "Chi đoàn Thanh niên Tổ dân phố An Dương Vương.", "Chi đoàn Thanh niên Tổ dân phố Mỹ Lộc.",
+            "Chi đoàn Thanh niên Tổ dân phố Cổ Loa.", "Chi đoàn Thanh niên Tổ dân phố Nguyễn Lương Bằng.",
+            "Chi đoàn Thanh niên Tổ dân phố Nguyễn Du.", "Chi đoàn Thanh niên Tổ dân phố Phạm Ngũ Lão.",
+            "Chi đoàn Thanh niên Tổ dân phố Lê Đại Hành.", "Chi đoàn Thanh niên Tổ dân phố Trần Phú.",
+            "Chi đoàn Thanh niên Tổ dân phố Suối Cát.", "Chi đoàn Thanh niên Tổ dân phố Xuân An.",
+            "Chi đoàn Thanh niên Tổ dân phố Nhà Chung.", "Chi đoàn Thanh niên Tổ dân phố Hà Huy Tập 1.",
+            "Chi đoàn Thanh niên Tổ dân phố Tân Bình.", "Chi đoàn Thanh niên Tổ dân phố Hà Huy Tập 2.",
+            "Chi đoàn Thanh niên Tổ dân phố Lương Thế Vinh.", "Chi đoàn Thanh niên Tổ dân phố Ba Tháng Tư.",
+            "Chi đoàn Thanh niên Tổ dân phố Đặng Thái Thân.", "Chi đoàn Thanh niên Tổ dân phố Nguyễn Tri Phương.",
+            "Chi đoàn Thanh niên Tổ dân phố Nguyễn Trung Trực 2", "Chi đoàn Thanh niên Tổ dân phố An Bình 1",
+            "Chi đoàn Thanh niên Tổ dân phố An Bình 2", "Chi đoàn Thanh niên Tổ dân phố Tô Hiến Thành.",
+            "Chi đoàn Thanh niên Tổ dân phố Tân Lạc", "Chi đoàn Thanh niên Tổ dân phố Prenn.",
+            "Chi đoàn Thanh niên Tổ dân phố Trường Chinh.", "Chi đoàn Thanh niên Tổ dân phố Thiên Thành.",
+            "Chi đoàn Thanh niên Tổ dân phố Mạc Đỉnh Chi 1.", "Chi đoàn Thanh niên Tổ dân phố Mạc Đỉnh Chi 2.",
+            "Chi đoàn Thanh niên Tổ dân phố Trần Lê.", "Chi đoàn Thanh niên Tổ dân phố Thiện Mỹ.",
+            "Chi đoàn Thanh niên Tổ dân phố Đồng Thiện", "Chi đoàn Thanh niên Ngô Thì Nhậm",
+            "Chi đoàn Thanh niên Tổ dân phố Nam Thiên.", "Chi đoàn Thanh niên Tổ dân phố Huyền Trân Công Chúa.",
+            "Chi đoàn Thanh niên Tổ dân phố Ngô Thì Sỹ", "Chi đoàn Thanh niên Tổ dân phố Lê Hồng Phong.",
+            "Chi đoàn Thanh niên Tổ dân phố Huỳnh Thúc Kháng.", "Chi đoàn Thanh niên Tổ dân phố An Lạc 1.",
+            "Chi đoàn Thanh niên Tổ dân phố An Lạc 2.", "Chi đoàn Thanh niên Tổ dân phố Nguyễn Trung Trực 1.",
+            "Chi đoàn Thanh niên Tổ dân phố An Sơn 1.", "Chi đoàn Thanh niên Tổ dân phố An Sơn 2.",
+            "Chi đoàn Thanh niên Tổ dân phố Trần Thái Tông.", "Chi đoàn Thanh niên Tổ dân phố Yên Thế.",
+            "Chi đoàn Thanh niên Tổ dân phố Hoàng Hoa Thám.", "Chi đoàn Thanh niên Tổ dân phố Đa Lợi.",
+            "Chi đoàn Thanh niên Tổ dân phố Lê Văn Tám.", "Chi đoàn Thanh niên Tổ dân phố Khe Sanh.",
+            "Chi đoàn Thanh niên Tổ dân phố Sở Lăng.", "Chi đoàn Thanh niên Tổ dân phố Trần Quý Cáp",
+            "Chi đoàn Thanh niên Tổ dân phố Hồng Lạc", "Chi đoàn Thanh niên Tổ dân phố Phạm Hồng Thái",
+            "Chi đoàn Thanh niên Tổ dân phố Trần Hưng Đạo", "Chi đoàn Thanh niên Tổ dân phố Khởi Nghĩa Bắc Sơn",
+            "Chi đoàn Thanh niên Tổ dân phố Nhất Thống", "Chi đoàn Thanh niên Tổ dân phố Yersin",
+            "Chi đoàn Thanh niên Tổ dân phố Trần Quang Diệu"
+        ];
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputWork = document.getElementById('input-work');
+            const dropdown = document.getElementById('work-dropdown');
+
+            // Sắp xếp danh sách đơn vị (biến workUnits bạn đã có ở trên)
+            const sortedUnits = workUnits.sort((a, b) => a.localeCompare(b, 'vi'));
+
+            // Hàm hiển thị danh sách
+            function renderDropdown(list) {
+                dropdown.innerHTML = '';
+                if (list.length === 0) {
+                    dropdown.style.display = 'none';
+                    return;
+                }
+                list.forEach(unit => {
+                    const item = document.createElement('div');
+                    item.className = 'select-item';
+                    item.textContent = unit;
+                    item.onclick = () => {
+                        inputWork.value = unit;
+                        dropdown.style.display = 'none';
+                        // Gọi hàm checkInputs của bạn để mở nút Bắt đầu
+                        if (typeof checkInputs === 'function') checkInputs();
+                    };
+                    dropdown.appendChild(item);
+                });
+                dropdown.style.display = 'block';
+            }
+
+            // Khi người dùng gõ phím
+            inputWork.addEventListener('input', (e) => {
+                const val = e.target.value.toLowerCase();
+                const filtered = sortedUnits.filter(u => u.toLowerCase().includes(val));
+                renderDropdown(filtered);
+            });
+
+            // Khi click vào ô input
+            inputWork.addEventListener('focus', () => {
+                renderDropdown(sortedUnits);
+            });
+
+            // Đóng khi click ra ngoài
+            document.addEventListener('click', (e) => {
+                if (!document.getElementById('work-container').contains(e.target)) {
+                    dropdown.style.display = 'none';
+                }
+            });
+
+            // Mobile Keyboard Support
+            const kbInput = document.getElementById('mobile-keyboard-input');
+            if (kbInput) {
+                kbInput.addEventListener('input', (e) => {
+                    const char = e.data || e.target.value.slice(-1);
+                    if (char) {
+                        handleKey({ key: char, preventDefault: () => { } });
+                    }
+                    kbInput.value = '';
+                });
+                kbInput.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' || e.key === 'Enter') {
+                        handleKey(e);
+                    }
+                });
+            }
+        });
+
+        // 2. Hàm tự động đổ dữ liệu vào menu khi trang web vừa tải xong
+        document.addEventListener('DOMContentLoaded', () => {
+            const dataList = document.getElementById('work-list');
+            // Sắp xếp danh sách theo bảng chữ cái A-Z
+            const sortedUnits = workUnits.sort((a, b) => a.localeCompare(b, 'vi'));
+
+            sortedUnits.forEach(unit => {
+                const option = document.createElement('option');
+                option.value = unit;
+                dataList.appendChild(option);
+            });
+        });
+        /* ============================================================
+           PLAYER NAME GATE
+           ============================================================ */
+        let playerName = '';
+        let playerWork = '';
+        let playerPhone = '';
+
+        const inputName = document.getElementById('input-name');
+        const inputWork = document.getElementById('input-work');
+        const inputPhone = document.getElementById('input-phone');
+        const startBtn = document.getElementById('start-btn');
+
+        // Hàm kiểm tra xem đã nhập đủ 3 trường chưa để mở nút Bắt đầu
+        function checkInputs() {
+            const isNameOk = inputName.value.trim().length >= 2;
+            const isWorkOk = inputWork.value.trim().length >= 2;
+            const isPhoneOk = inputPhone.value.trim().length >= 9;
+            startBtn.disabled = !(isNameOk && isWorkOk && isPhoneOk);
+        }
+
+        [inputName, inputWork, inputPhone].forEach(input => {
+            input.addEventListener('input', checkInputs);
+        });
+        function startGame() {
+            playerName = inputName.value.trim();
+            playerWork = inputWork.value.trim();
+            playerPhone = inputPhone.value.trim();
+
+            if (startBtn.disabled) return;
+            // Hide name screen
+            document.getElementById('name-screen').style.display = 'none';
+
+            // Show greeting
+            document.getElementById('player-name-display').textContent = playerName;
+            document.getElementById('player-greeting').style.display = 'block';
+
+            // Audio: Fade in background music
+            const bgMusic = document.getElementById('bg-music');
+            if (bgMusic) {
+                bgMusic.currentTime = 14; // Start from 14s
+                bgMusic.volume = 0;
+                bgMusic.play().catch(e => console.log("Audio play blocked", e));
+                let vol = 0;
+                const fadeIn = setInterval(() => {
+                    vol += 0.05;
+                    if (vol >= 0.5) {
+                        bgMusic.volume = 0.5;
+                        clearInterval(fadeIn);
+                    } else {
+                        bgMusic.volume = vol;
+                    }
+                }, 200);
+            }
+
+            // Go fullscreen
+            goFullscreen();
+
+            // Init game after small delay
+            setTimeout(initGame, 300);
+
+            // Start watching for fullscreen exit
+            watchFullscreen();
+        }
+
+        function toggleMusic() {
+            const bgMusic = document.getElementById('bg-music');
+            const icon = document.getElementById('music-icon');
+            const status = document.getElementById('music-status');
+            if (bgMusic.paused) {
+                bgMusic.play();
+                icon.textContent = '🔊';
+                status.textContent = 'BẬT';
+                status.style.color = '#5dff8a';
+            } else {
+                bgMusic.pause();
+                icon.textContent = '🔇';
+                status.textContent = 'TẮT';
+                status.style.color = '#ff4d4d';
+            }
+        }
+
+        /* ============================================================
+           FULLSCREEN & ANTI-CHEAT
+           ============================================================ */
+        let gameStarted = false;
+        let cheatCheckEnabled = false;
+
+        function goFullscreen() {
+            const el = document.documentElement;
+            const fn = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+            if (fn) fn.call(el).catch(() => { });
+        }
+
+        function isFullscreen() {
+            return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+        }
+        // Theo dõi sự kiện tập trung cửa sổ
+        function watchFullscreen() {
+            setTimeout(() => { cheatCheckEnabled = true; }, 1500);
+
+            // 1. Chặn thoát Fullscreen
+            const fsEvents = ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'];
+            fsEvents.forEach(ev => document.addEventListener(ev, () => {
+                if (!isFullscreen() && cheatCheckEnabled) triggerCheatWarning("Thoát chế độ toàn màn hình");
+            }));
+
+            // 2. Chặn Alt + Tab / Chuyển Tab
+            window.addEventListener('blur', () => {
+                if (cheatCheckEnabled) triggerCheatWarning("Chuyển sang cửa sổ khác");
+            });
+
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden && cheatCheckEnabled) triggerCheatWarning("Ẩn trình duyệt");
+            });
+        }
+
+        function triggerCheatWarning(reason) {
+            if (isPaused) return; // Nếu đang dừng rồi thì thôi
+
+            cheatCount++;
+            isPaused = true;
+            cheatCheckEnabled = false; // Tạm dừng check để tránh lặp
+
+            // Tạm dừng đồng hồ (Giả sử bạn dùng setInterval cho updateTimer)
+            clearInterval(gs.timerInterval);
+
+            // Hiển thị Overlay
+            const overlay = document.getElementById('cheat-overlay');
+            document.getElementById('violation-count').textContent = cheatCount;
+            overlay.style.display = 'flex';
+
+            if (cheatCount >= 2) {
+                document.getElementById('cheat-msg').innerHTML = "<b style='color:red'>BẠN ĐÃ VI PHẠM QUÁ 2 LẦN!</b><br>Kết quả bị hủy bỏ hoàn toàn.";
+                document.getElementById('resume-btn').textContent = "Tải lại trang";
+                document.getElementById('resume-btn').onclick = () => location.reload();
+            }
+        }
+
+        function resumeGame() {
+            if (cheatCount >= 2) {
+                location.reload();
+                return;
+            }
+
+            // Yêu cầu vào lại Fullscreen
+            goFullscreen();
+
+            // Đóng overlay
+            document.getElementById('cheat-overlay').style.display = 'none';
+
+            // Tiếp tục đồng hồ
+            gs.startTime = Date.now() - (parseTimeToMs(document.getElementById('timer').textContent));
+            gs.timerInterval = setInterval(updateTimer, 1000);
+
+            isPaused = false;
+            setTimeout(() => { cheatCheckEnabled = true; }, 1500);
+        }
+
+        // Hàm hỗ trợ tính lại thời gian khi Resume
+        function parseTimeToMs(timeStr) {
+            const parts = timeStr.split(':');
+            return (parseInt(parts[0]) * 60 + parseInt(parts[1])) * 1000;
+        }
+
+        // function watchFullscreen() {
+        //     // Enable cheat detection after 1.5s (so initial fullscreen transition doesn't trigger it)
+        //     setTimeout(() => { cheatCheckEnabled = true; }, 1500);
+
+        //     const events = ['fullscreenchange', 'webkitfullscreenchange', 'mozfullscreenchange', 'MSFullscreenChange'];
+        //     events.forEach(ev => document.addEventListener(ev, onFullscreenChange));
+        // }
+
+        function onFullscreenChange() {
+            if (!cheatCheckEnabled) return;
+            if (!isFullscreen()) {
+                triggerCheatWarning();
+            }
+        }
+
+        // function triggerCheatWarning() {
+        //     cheatCheckEnabled = false; // prevent re-trigger
+        //     const overlay = document.getElementById('cheat-overlay');
+        //     overlay.classList.add('show');
+
+        //     let secs = 3;
+        //     const fill = document.getElementById('cheat-bar-fill');
+        //     const label = document.getElementById('cheat-countdown');
+
+        //     const iv = setInterval(() => {
+        //         secs--;
+        //         const pct = ((3 - secs) / 3) * 100;
+        //         fill.style.width = pct + '%';
+        //         label.textContent = secs > 0 ? secs + ' giây...' : 'Đang tải lại...';
+        //         if (secs <= 0) { clearInterval(iv); location.reload(); }
+        //     }, 1000);
+        // }
+
+        /* ============================================================
+           ANTI-INSPECT (tâm lý, không phải bảo mật thật)
+           ============================================================ */
+        (function () {
+            document.addEventListener('contextmenu', e => e.preventDefault());
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'F12' ||
+                    (e.ctrlKey && e.shiftKey && ['I', 'J', 'C', 'K'].includes(e.key.toUpperCase())) ||
+                    (e.ctrlKey && ['U', 'S'].includes(e.key.toUpperCase()))) {
+                    e.preventDefault(); e.stopPropagation(); return false;
+                }
+            }, true);
+            document.addEventListener('selectstart', e => e.preventDefault());
+            document.addEventListener('copy', e => e.preventDefault());
+            document.addEventListener('cut', e => e.preventDefault());
+        })();
+
+        /* ============================================================
+           GAME DATA
+           ============================================================ */
+        const KEY_COL = 12;
+        const _d = s => atob(s).split('').reverse().join('');
+        const _e = s => btoa(s.split('').reverse().join(''));
+
+        const QUESTIONS_DATA = [
+            { q: "Chiến dịch mở màn cho đại thắng mùa xuân 1975?", a: _e("CHIENDICHTAYNGUYEN"), d: "CHIẾNDỊCHTÂYNGUYÊN", k: 9 },
+            { q: "Tên ngôi trường đồng chí Trần Phú đã theo học tiểu học?", a: _e("QUOCHOCHUE"), d: "QUỐCHỌCHUẾ", k: 4 },
+            { q: "Tỉnh cuối cùng của miền Nam được giải phóng trong cuộc Tổng tiến công xuân 1975?", a: _e("TINHCHAUDOC"), d: "TỈNHCHÂUĐỐC", k: 9 },
+            { q: "Thành phố nào được giải phóng vào ngày 30/4/1975?", a: _e("SAIGON"), d: "SÀIGÒN", k: 5 },
+            { q: "Tên tác giả bài hát \"Đất nước trọn niềm vui\"?", a: _e("NHACSIHOANGHA"), d: "NHẠCSĨHOÀNGHÀ", k: 10 },
+            { q: "Sau khi thất thủ ở Tây Nguyên, Huế, Đà Nẵng, địch phải lui về phòng thủ ở đâu?", a: _e("PHANRANG"), d: "PHANRANG", k: 3 },
+            { q: "Chiến dịch quyết định giải phóng Sài Gòn mang tên vị lãnh tụ nào?", a: _e("HOCHIMINH"), d: "HỒCHÍMINH", k: 3 },
+            { q: "Vị lãnh tụ kính yêu khai sinh ra nước Việt Nam Dân chủ Cộng hòa. Tên khai sinh là Nguyễn Sinh Cung, khi đi học Người lấy tên là", a: _e("NGUYENTATTHANH"), d: "NGUYỄNTẤTTHÀNH", k: 7 },
+            { q: "\"Còn cái lai quần cũng đánh\" là câu nói nổi tiếng của ai?", a: _e("NGUYENTHIUT"), d: "NGUYỄNTHỊÚT", k: 6 },
+            { q: "Lực lượng nòng cốt giải phóng miền Nam Việt Nam, đóng vai trò quyết định trong  Chiến dịch Hồ Chí Minh năm 1975, thống nhất đất nước là lực lượng nào?", a: _e("QUANDOI"), d: "QUÂNĐỘI", k: 4 },
+            { q: "Tên bài hát của nhạc sĩ Hoàng Hà nói về niềm vui ngày đại thắng?", a: _e("DATNUOCTRONNIEMVUI"), d: "ĐẤTNƯỚCTRỌNNIỀMVUI", k: 1 },
+            { q: "\"Chiến thắng Xuân Lộc (9–21/4/1975) làm rung chuyển toàn bộ hệ thống phòng thủ của địch xung quanh Sài Gòn...\" Câu nói của ai?", a: _e("DAITUONGVONGUYENGIAP"), d: "ĐẠITƯỚNGVÕNGUYÊNGIÁP", k: 3 },
+            { q: "Vị tổng thống cuối cùng của chính quyền Mĩ–Ngụy đã đầu hàng vô điều kiện?", a: _e("DUONGVANMINH"), d: "DƯƠNGVĂNMINH", k: 3 },
+            { q: "Lực lượng Quân đội Nhân dân Việt Nam tham chiến trong trận Xuân Lộc do ai làm Tư Lệnh?", a: _e("THIEUTUONGHOANGCAM"), d: "THIẾUTƯỚNGHOÀNGCẦM", k: 6 },
+            { q: "Chiến thắng 30/4/1975 đưa Việt Nam bước vào _______, kỷ nguyên vươn mình của dân tộc?", a: _e("KYNGUYENMOI"), d: "KỶNGUYÊNMỚI", k: 9 },
+            { q: "Vùng đất được mệnh danh là 'Đất thép thành đồng' ở cửa ngõ Sài Gòn?", a: _e("CUCHI"), d: "CỦCHI", k: 0 }
+        ];
+
+        let gs = { solvedCount: 0, startTime: null, timerInterval: null, activeCell: null, answers: [], finalTime: '' };
+
+        /* ============================================================
+           INIT
+           ============================================================ */
+        function initGame() {
+            const gridEl = document.getElementById('crossword-grid');
+            const clueEl = document.getElementById('clues-list');
+            gridEl.innerHTML = ''; clueEl.innerHTML = '';
+
+            gs.answers = QUESTIONS_DATA.map(item => ({
+                plain: _d(item.a), display: item.d, question: item.q,
+                keyIndex: item.k, solved: false, startCol: KEY_COL - item.k
+            }));
+
+            renderGrid(gridEl);
+            renderClues(clueEl);
+
+            gs.startTime = Date.now();
+            gs.timerInterval = setInterval(updateTimer, 1000);
+            document.addEventListener('keydown', handleKey);
+            setTimeout(() => selectCell(0, 0), 400);
+        }
+
+        // function renderGrid(container) {
+        //     const totalCols = 30;
+        //     container.style.gridTemplateColumns = `repeat(${totalCols},42px)`;
+        //     container.style.gridTemplateColumns = `repeat(${totalCols}, minmax(40px, 0.5fr))`;
+        //     container.style.width = '100%';
+        //     container.style.maxWidth = '1000px'; // Bạn có thể giới hạn độ rộng tối đa cho đẹp
+        //     container.style.margin = '0 auto';   // Căn giữa bảng
+        //     container.style.gridTemplateRows = `repeat(${QUESTIONS_DATA.length},40px)`;
+
+        //     for (let r = 0; r < QUESTIONS_DATA.length; r++) {
+        //         const row = gs.answers[r];
+        //         for (let c = 0; c < totalCols; c++) {
+        //             const ci = c - row.startCol;
+        //             if (ci >= 0 && ci < row.plain.length) {
+        //                 const cell = document.createElement('div');
+        //                 cell.className = 'cell';
+        //                 if (c === KEY_COL) cell.classList.add('key');
+        //                 cell.id = `cell-${r}-${ci}`;
+        //                 if (ci === 0) {
+        //                     const num = document.createElement('span');
+        //                     num.className = 'cell-num'; num.textContent = r + 1;
+        //                     cell.appendChild(num);
+        //                 }
+        //                 cell.addEventListener('click', () => selectCell(r, ci));
+        //                 container.appendChild(cell);
+        //             } else {
+        //                 container.appendChild(document.createElement('div'));
+        //             }
+        //         }
+        //     }
+        // }
+        function renderGrid(container) {
+            const totalCols = 30;
+            // Dùng minmax(0, 1fr) để 30 cột không bị giãn bởi nội dung
+            container.style.gridTemplateColumns = `repeat(${totalCols}, minmax(0, 1fr))`;
+            container.style.width = '100%';
+            container.style.maxWidth = '1100px'; // Nới rộng ra một chút cho thoáng
+            container.style.margin = '0 auto';
+            container.style.display = 'grid'; // Đảm bảo container là grid
+
+            // Bỏ dòng gridTemplateRows cũ đi để dùng aspect-ratio trong CSS sẽ chuẩn hơn
+            container.style.gridTemplateRows = 'none';
+
+            container.innerHTML = ''; // Xóa nội dung cũ trước khi vẽ
+
+            for (let r = 0; r < QUESTIONS_DATA.length; r++) {
+                const row = gs.answers[r];
+                for (let c = 0; c < totalCols; c++) {
+                    const ci = c - row.startCol;
+                    if (ci >= 0 && ci < row.plain.length) {
+                        const cell = document.createElement('div');
+                        cell.className = 'cell'; // Đảm bảo class này trùng với CSS bên dưới
+                        if (c === KEY_COL) cell.classList.add('key');
+                        cell.id = `cell-${r}-${ci}`;
+                        if (ci === 0) {
+                            const num = document.createElement('span');
+                            num.className = 'cell-num';
+                            num.textContent = r + 1;
+                            cell.appendChild(num);
+                        }
+                        cell.addEventListener('click', () => selectCell(r, ci));
+                        container.appendChild(cell);
+                    } else {
+                        container.appendChild(document.createElement('div'));
+                    }
+                }
+            }
+        }
+
+        function renderClues(container) {
+            gs.answers.forEach((ans, idx) => {
+                const div = document.createElement('div');
+                div.className = 'clue-item'; div.id = `clue-${idx}`;
+                div.innerHTML = `<div class="clue-id">${idx + 1}</div><div class="clue-text">${ans.question}</div>`;
+                div.addEventListener('click', () => selectCell(idx, 0));
+                container.appendChild(div);
+            });
+        }
+
+        function selectCell(row, index) {
+            // Clear previous highlighting
+            document.querySelectorAll('.cell').forEach(c => c.classList.remove('active', 'row-active'));
+            document.querySelectorAll('.clue-item').forEach(q => q.classList.remove('active'));
+
+            gs.activeCell = { row, index };
+
+            // Highlight current cell
+            const cell = document.getElementById(`cell-${row}-${index}`);
+            if (cell) cell.classList.add('active');
+
+            // Highlight the entire row
+            const rd = gs.answers[row];
+            for (let i = 0; i < rd.plain.length; i++) {
+                const rowCell = document.getElementById(`cell-${row}-${i}`);
+                if (rowCell) rowCell.classList.add('row-active');
+            }
+
+            // Activate clue
+            const clue = document.getElementById(`clue-${row}`);
+            if (clue) {
+                clue.classList.add('active');
+                clue.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            // Focus hidden input for mobile keyboard
+            const kbInput = document.getElementById('mobile-keyboard-input');
+            if (kbInput) {
+                kbInput.focus();
+                // Scroll back to the cell because focus() might jump the page
+                cell.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        function handleKey(e) {
+            if (!gs.activeCell) return;
+            const { row, index } = gs.activeCell;
+            const rd = gs.answers[row];
+            if (rd.solved) { moveNext(); return; }
+
+            if (e.key === 'Backspace') {
+                e.preventDefault();
+                const cell = document.getElementById(`cell-${row}-${index}`);
+                const num = cell.querySelector('.cell-num');
+                cell.textContent = ''; if (num) cell.appendChild(num);
+                cell.classList.remove('filled');
+                if (index > 0) selectCell(row, index - 1);
+                return;
+            }
+            if (e.key === 'ArrowRight') { if (index < rd.plain.length - 1) selectCell(row, index + 1); return; }
+            if (e.key === 'ArrowLeft') { if (index > 0) selectCell(row, index - 1); return; }
+            if (e.key === 'ArrowDown') { moveNext(); return; }
+            if (e.key === 'Enter') { checkRow(row); return; }
+
+            if (e.key.length === 1 && /[a-zA-Z0-9]/i.test(e.key)) {
+                e.preventDefault();
+                const cell = document.getElementById(`cell-${row}-${index}`);
+                const num = cell.querySelector('.cell-num');
+                cell.textContent = e.key.toUpperCase();
+                if (num) cell.appendChild(num);
+                cell.classList.add('filled');
+                if (index < rd.plain.length - 1) selectCell(row, index + 1);
+                else checkRow(row);
+            }
+        }
+
+        function checkRow(row) {
+            const rd = gs.answers[row]; if (rd.solved) return;
+            let userAns = '';
+            for (let i = 0; i < rd.plain.length; i++) {
+                const cell = document.getElementById(`cell-${row}-${i}`);
+                let txt = '';
+                cell.childNodes.forEach(n => { if (n.nodeType === Node.TEXT_NODE) txt += n.textContent; });
+                userAns += txt;
+            }
+            const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s/g, '').toUpperCase();
+            if (norm(userAns) === norm(rd.plain)) {
+                rd.solved = true; gs.solvedCount++;
+                document.getElementById('solved-count').textContent = gs.solvedCount;
+
+                // Play correct SFX
+                const sfx = document.getElementById('sfx-correct');
+                if (sfx) {
+                    sfx.currentTime = 0;
+                    sfx.play().catch(e => console.log("SFX play blocked", e));
+                }
+
+                for (let i = 0; i < rd.plain.length; i++) {
+                    const cell = document.getElementById(`cell-${row}-${i}`);
+                    cell.textContent = rd.display[i];
+                    cell.classList.add('correct'); cell.classList.remove('active', 'filled', 'row-active');
+                }
+                document.getElementById(`clue-${row}`).classList.add('solved');
+                const left = QUESTIONS_DATA.length - gs.solvedCount;
+                document.getElementById('status-text').textContent = left > 0 ? `Còn ${left} câu` : 'Hoàn thành!';
+                if (gs.solvedCount === QUESTIONS_DATA.length) setTimeout(victory, 600);
+                else setTimeout(moveNext, 400);
+            }
+        }
+
+        function moveNext() {
+            for (let i = 0; i < gs.answers.length; i++) {
+                const idx = (gs.activeCell.row + 1 + i) % gs.answers.length;
+                if (!gs.answers[idx].solved) { selectCell(idx, 0); return; }
+            }
+        }
+
+        function updateTimer() {
+            const e = Math.floor((Date.now() - gs.startTime) / 1000);
+            document.getElementById('timer').textContent =
+                String(Math.floor(e / 60)).padStart(2, '0') + ':' + String(e % 60).padStart(2, '0');
+        }
+
+        function victory() {
+            clearInterval(gs.timerInterval);
+            gs.finalTime = document.getElementById('timer').textContent;
+            document.getElementById('final-time').textContent = gs.finalTime;
+            document.getElementById('win-player-name').textContent = '🎖 ' + playerName;
+            document.getElementById('win-modal').style.display = 'flex';
+            launchFireworks();
+        }
+
+
+
+        /* ============================================================
+           SUBMIT — Screenshot + Google Form redirect
+           ============================================================ */
+        async function submitResult() {
+            const valName = document.getElementById('input-name').value;
+            const valWork = document.getElementById('input-work').value;
+            const valPhone = document.getElementById('input-phone').value;
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = true;
+            btn.classList.add('capturing');
+            btn.textContent = '📸 Đang chụp...';
+
+            // Flash effect
+            const flash = document.getElementById('ss-flash');
+            flash.classList.add('flash');
+            setTimeout(() => flash.classList.remove('flash'), 300);
+
+            try {
+                // Take screenshot of the win modal
+                const target = document.getElementById('win-modal-inner');
+                const canvas = await html2canvas(target, {
+                    backgroundColor: '#180400',
+                    scale: 2,
+                    useCORS: true,
+                    allowTaint: true,
+                    logging: false
+                });
+
+                // Download screenshot
+                const link = document.createElement('a');
+                link.download = `ochulisu_${playerName.replace(/\s+/g, '_')}_${gs.finalTime.replace(':', '-')}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+
+                // Copy result text to clipboard
+                const resultText = `Họ tên: ${playerName} | Thời gian: ${gs.finalTime} | Ô Chữ Lịch Sử 30/4/1975`;
+                try { await navigator.clipboard.writeText(resultText); } catch (e) { }
+
+                // Redirect to Google Form (mock URL — thay bằng link thật của bạn)
+                // Các entry.XXXXXXX là field ID từ Google Form của bạn
+                const formBase = 'https://docs.google.com/forms/d/e/1FAIpQLScSsI04Ar2CYI-DHzZKJHqdY5MLiL6-8LA5yOfeTgEVnXLKgw/viewform';
+                console.log("Tên người chơi là:", playerName);
+                const params = new URLSearchParams({
+                    'entry.100118172': playerName,
+                    'entry.650219245': gs.finalTime,
+                    'entry.1395088575': playerWork,
+                    'entry.409627555': playerPhone
+                });
+
+                btn.textContent = '🚀 Chuyển tới Form...';
+                setTimeout(() => {
+                    window.open(`${formBase}?${params.toString()}`, '_blank');
+                    btn.disabled = false;
+                    btn.classList.remove('capturing');
+                    btn.textContent = '✅ Đã nộp bài!';
+                }, 800);
+
+            } catch (err) {
+                // Fallback nếu html2canvas lỗi
+                const resultText = `Họ tên: ${playerName} | Thời gian: ${gs.finalTime} | Ô Chữ Lịch Sử 30/4/1975`;
+                try { await navigator.clipboard.writeText(resultText); } catch (e) { }
+                btn.disabled = false;
+                btn.classList.remove('capturing');
+                btn.textContent = '📋 Đã copy kết quả!';
+                alert(`Không thể chụp màn hình tự động.\nKết quả đã được copy:\n\n${resultText}\n\nVui lòng paste vào Google Form thủ công.`);
+            }
+        }
+
+        /* ============================================================
+           FIREWORKS
+           ============================================================ */
+        function launchFireworks() {
+            const canvas = document.getElementById('fireworks');
+            const box = canvas.parentElement;
+            canvas.width = box.offsetWidth; canvas.height = box.offsetHeight;
+            const ctx = canvas.getContext('2d');
+            const COLS = ['#ffd84d', '#f0a800', '#e8001a', '#ff6a3d', '#fffbe8', '#ff4d4d', '#ffe066', '#ffffff'];
+            const pts = [];
+            function burst(x, y) {
+                const n = 50 + Math.random() * 20 | 0;
+                for (let i = 0; i < n; i++) {
+                    const a = (Math.PI * 2 * i / n) + Math.random() * .3, sp = 2 + Math.random() * 5;
+                    pts.push({
+                        x, y, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, alpha: 1, size: 1.5 + Math.random() * 3,
+                        color: COLS[Math.random() * COLS.length | 0], g: .07 + Math.random() * .06, decay: .011 + Math.random() * .01
+                    });
+                }
+            }
+            const bs = [[.25, .3], [.75, .3], [.5, .18], [.15, .65], [.85, .5], [.5, .6]];
+            bs.forEach(([x, y]) => burst(canvas.width * x, canvas.height * y));
+            setTimeout(() => bs.forEach(([x, y]) => burst(canvas.width * x + 15, canvas.height * y + 15)), 500);
+            setTimeout(() => burst(canvas.width * .5, canvas.height * .38), 1000);
+            function tick() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = pts.length - 1; i >= 0; i--) {
+                    const p = pts[i]; p.x += p.vx; p.y += p.vy; p.vy += p.g; p.alpha -= p.decay;
+                    if (p.alpha <= 0) { pts.splice(i, 1); continue; }
+                    ctx.save(); ctx.globalAlpha = p.alpha; ctx.fillStyle = p.color;
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+                }
+                if (pts.length > 0) requestAnimationFrame(tick);
+            }
+            tick();
+        }
+    </script>
+</body>
+
+</html>
