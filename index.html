@@ -9,6 +9,8 @@
         href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&family=Dancing+Script:wght@700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300&display=swap"
         rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script data-goatcounter="https://nguyenaimung.goatcounter.com/count" async
+        src="https://gc.zgo.at/count.js"></script>
     <style>
         :root {
             --gold: #d4a017;
@@ -104,6 +106,8 @@
             text-transform: uppercase;
             opacity: 0.6;
             margin-top: 30px;
+            white-space: nowrap;
+            /* Force one line */
         }
 
         .pl-org {
@@ -118,6 +122,8 @@
             transition: 1s ease;
             margin-bottom: 20px;
             text-shadow: 0 0 20px rgba(212, 160, 23, 0.5);
+            white-space: nowrap;
+            /* Force one line */
         }
 
         .pl-org.show {
@@ -166,12 +172,73 @@
 
         @media (max-width: 768px) {
             #nav {
-                padding: 15px 5vw;
-                background: rgba(0, 0, 0, 0.8);
+                padding: 10px 5vw;
+                background: rgba(0, 0, 0, 0.9);
             }
 
             .nav-logo-text {
-                font-size: 16px;
+                font-size: 14px;
+                white-space: nowrap;
+            }
+
+            .nav-links {
+                gap: 8px;
+            }
+
+            .nav-links a {
+                font-size: 9px;
+                letter-spacing: 1px;
+                white-space: nowrap;
+            }
+
+            .nav-links a.nav-cta {
+                padding: 5px 12px;
+            }
+
+            /* HERO RESPONSIVENESS */
+            .hero-content {
+                width: 95%;
+                padding-top: 80px;
+                /* Space for fixed nav */
+            }
+
+            .hero-main-title {
+                font-size: clamp(32px, 10vw, 50px) !important;
+                white-space: nowrap;
+                letter-spacing: -1px;
+            }
+
+            .hero-sub-title {
+                font-size: clamp(14px, 4vw, 18px) !important;
+                white-space: nowrap;
+                letter-spacing: 1px;
+            }
+
+            .hero-logos img {
+                height: clamp(30px, 10vw, 50px) !important;
+            }
+
+            .btn-glow {
+                font-size: 14px !important;
+                padding: 10px 20px !important;
+                white-space: nowrap;
+            }
+
+            .countdown-container {
+                gap: 5px;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 10px;
+                justify-content: flex-start;
+            }
+
+            .countdown-item {
+                min-width: 65px !important;
+                padding: 10px 5px !important;
+            }
+
+            .countdown-value {
+                font-size: 24px !important;
             }
         }
 
@@ -2438,6 +2505,165 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        footer {
+            text-align: center;
+            padding: 80px 5vw;
+            background: #050505;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            font-size: 32px;
+            letter-spacing: 8px;
+            color: var(--gold-bright);
+            margin-bottom: 20px;
+            white-space: nowrap;
+            /* Force one line */
+        }
+
+        .footer-slogan {
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            opacity: 0.6;
+            margin-bottom: 40px;
+        }
+
+        .footer-motto {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 20px;
+            color: var(--gold);
+            white-space: nowrap;
+            letter-spacing: 1px;
+            font-weight: 700;
+            text-transform: none !important;
+            /* Ensure it's not uppercase */
+        }
+
+        /* STATS COUNTER */
+        .stats-counter-container {
+            display: flex;
+            justify-content: center;
+            gap: 100px;
+            margin-top: 60px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            border: 1px solid rgba(212, 160, 23, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .counter-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .counter-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+            filter: drop-shadow(0 0 10px var(--gold));
+        }
+
+        .counter-number {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--gold-bright);
+            font-family: 'Montserrat', sans-serif;
+            text-shadow: 0 0 20px rgba(212, 160, 23, 0.5);
+            margin-bottom: 5px;
+        }
+
+        .counter-label {
+            font-size: 11px;
+            letter-spacing: 3px;
+            color: #fff;
+            opacity: 0.7;
+            text-transform: uppercase;
+        }
+
+        .counter-divider {
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(212, 160, 23, 0.3), transparent);
+        }
+
+        @media (max-width: 768px) {
+            .stats-counter-container {
+                gap: 30px;
+                padding: 20px;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .counter-divider {
+                width: 50%;
+                height: 1px;
+            }
+
+            .counter-number {
+                font-size: 32px;
+            }
+
+            /* MODAL SAFETY */
+            .rules-content {
+                padding: 20px;
+                max-height: 90vh;
+                overflow-y: auto;
+                width: 95%;
+                margin: 20px auto;
+                border-radius: 20px;
+            }
+
+            .rules-title {
+                font-size: clamp(18px, 5vw, 24px);
+                margin-bottom: 15px;
+            }
+
+            .pl-org {
+                font-size: clamp(12px, 5vw, 18px) !important;
+                letter-spacing: 1px !important;
+                padding: 0 10px;
+                text-align: center;
+                width: 100%;
+                white-space: nowrap;
+            }
+
+            .pl-text {
+                font-size: clamp(8px, 2.5vw, 10px);
+                letter-spacing: 2px;
+                white-space: nowrap;
+            }
+
+            .footer-logo {
+                font-size: clamp(16px, 6vw, 22px);
+                letter-spacing: 2px;
+                white-space: nowrap;
+            }
+
+            .footer-motto {
+                font-size: clamp(12px, 4.5vw, 16px);
+                letter-spacing: 1px;
+                text-transform: none !important;
+                white-space: nowrap;
+            }
+        }
+
+        /* Very Small Screens */
+        @media (max-width: 340px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-main-title {
+                font-size: 26px !important;
+            }
+
+            .footer-logo {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 
@@ -2630,7 +2856,7 @@
                         <div class="quote-text">“Không có gì quý hơn độc lập, tự do!”</div>
                         <div class="quote-author">
                             Chủ tịch Hồ Chí Minh
-                            <div class="quote-meta">Lời kêu gọi toàn quốc kháng chiến năm 1966</div>
+                            <div class="quote-meta">"Lời kêu gọi toàn quốc kháng chiến năm 1966"</div>
                         </div>
                     </div>
                 </div>
@@ -2644,7 +2870,7 @@
                         <div class="quote-text">“Đánh cho Mỹ cút, đánh cho Ngụy nhào.”</div>
                         <div class="quote-author">
                             Chủ tịch Hồ Chí Minh
-                            <div class="quote-meta">Chiến lược xuyên suốt để đi đến ngày 30/4</div>
+                            <div class="quote-meta">"Chiến lược xuyên suốt để đi đến ngày 30/4"</div>
                         </div>
                     </div>
                 </div>
@@ -3061,13 +3287,14 @@
                 và thống nhất Tổ quốc.
             </p>
 
+
             <p class="about-p highlight" id="heroicText2">
-                Ngày nay, chúng ta mãi tự hào và biết ơn sự hy sinh to lớn của các anh hùng liệt sĩ. Mỗi người dân Việt
-                Nam
-                nguyện tiếp tục phát huy chủ nghĩa anh hùng cách mạng, tinh thần đại đoàn kết toàn dân, quyết tâm vươn
-                lên xây
-                dựng Tổ quốc Việt Nam dân giàu, nước mạnh, dân chủ, công bằng, văn minh.
+                Thế hệ trẻ hôm nay mãi khắc ghi và biết ơn sâu sắc sự hy sinh to lớn của các Anh hùng liệt sĩ. Tiếp
+                nối hào khí ấy, mỗi Đoàn viên, Thanh niên và Đội viên nguyện ra sức học tập, không ngừng sáng tạo và
+                cống hiến, quyết tâm viết tiếp những trang sử vàng, chung tay dựng xây Tổ quốc Việt Nam phồn vinh, hạnh
+                phúc, dân chủ và văn minh.
             </p>
+
 
             <div style="margin-top: 50px; display: flex; justify-content: center;" data-aos="zoom-in"
                 data-aos-delay="1000">
@@ -3077,6 +3304,19 @@
                     BẮT ĐẦU TRÒ CHƠI →
                 </button>
             </div>
+
+            <!-- STATS COUNTER SECTION -->
+            <div class="stats-counter-container" data-aos="fade-up" data-aos-delay="1200">
+                <div class="counter-item">
+                    <div class="counter-number" id="visitCount">0</div>
+                    <div class="counter-label">LƯỢT TRUY CẬP</div>
+                </div>
+                <div class="counter-divider"></div>
+                <div class="counter-item">
+                    <div class="counter-number" id="submitCount">0</div>
+                    <div class="counter-label">BÀI THI ĐẠT YÊU CẦU</div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -3085,7 +3325,7 @@
         <div class="rules-content">
             <div class="rules-header">
                 <div class="rules-badge">LUẬT THI ĐẤU</div>
-                <h2 class="rules-title">THỂ LỆ CUỘC THI: HÀO KHÍ THỐNG NHẤT</h2>
+                <h2 class="rules-title">THỂ LỆ CUỘC THI: HÀO KHÍ 30/4</h2>
             </div>
             <div class="rules-body">
                 <div class="rules-section">
@@ -3098,7 +3338,7 @@
                     <h3>2. Cách Thức Tính Điểm</h3>
                     <p>Điểm được tính dựa trên số ô chữ giải đúng và thời gian hoàn thành. Bạn nên nghiên cứu kỹ nội
                         dung tại
-                        trang Landing Page này để tìm ra các từ khóa ẩn giấu.</p>
+                        trang giới thiệu này để tìm ra các từ khóa ẩn giấu.</p>
                 </div>
                 <div class="rules-section warning">
                     <h3>3. Quy Định Chống Gian Lận</h3>
@@ -3108,10 +3348,8 @@
                 </div>
                 <div class="rules-section">
                     <h3>4. Nộp Bài & Công Nhận</h3>
-                    <p>Sau khi hoàn thành ô chữ, nhấn nút "NỘP BÀI" để hệ thống ghi lại kết quả và chuyển sang bước điền
-                        thông tin
-                        xác nhận. Kết quả chỉ được tính khi có ảnh chụp màn hình xác nhận từ hệ thống và được đính kèm
-                        với bài nộp.
+                    <p>Sau khi hoàn thành ô chữ, nhấn nút "NỘP BÀI" để hệ thống ghi lại kết quả và nộp về cho ban tổ
+                        chức.
                     </p>
                 </div>
             </div>
@@ -3137,7 +3375,7 @@
     <footer>
         <div class="footer-logo" data-aos="zoom-in">VIỆT NAM · 1975 — 2026</div>
         <div class="footer-slogan" data-aos="fade-up" data-aos-delay="200">
-            51 năm Kỷ niệm Ngày Giải phóng miền Nam, thống nhất đất nước.
+            Kỷ niệm 51 năm Ngày Giải phóng miền Nam, thống nhất đất nước.
         </div>
         <div class="footer-motto" data-aos="fade-up" data-aos-delay="400">
             Độc lập — Tự do — Hạnh phúc
@@ -3644,6 +3882,81 @@
         // Initial setup
         updateCarousel();
         initHeroicReveal();
+
+        // COUNTER LOGIC
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML = Math.floor(progress * (end - start) + start).toLocaleString();
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        async function updateStats() {
+            // 1. Lấy lượt truy cập (Bắt đầu từ 3000 + Tăng trưởng đồng bộ)
+            try {
+                // Tăng ngẫu nhiên từ 1 đến 3 mỗi khi tải trang để tạo cảm giác thực tế
+                const randomStep = Math.floor(Math.random() * 3) + 1;
+                const visitRes = await fetch(`https://api.countapi.xyz/update/nguyenaimung_3004/visits?amount=${randomStep}`);
+                const visitData = await visitRes.json();
+
+                // Mốc bắt đầu là 3000
+                let totalVisits = 3000 + (visitData.value || 0);
+
+                // Đảm bảo không bao giờ giảm (phòng trường hợp API lỗi trả về số cũ)
+                let lastSeen = parseInt(localStorage.getItem('max_visits')) || 0;
+                if (totalVisits < lastSeen) {
+                    totalVisits = lastSeen + randomStep;
+                }
+                localStorage.setItem('max_visits', totalVisits);
+
+                animateValue(document.getElementById('visitCount'), 0, totalVisits, 2500);
+            } catch (e) {
+                // Nếu API lỗi, dùng số lưu cục bộ và tăng nhẹ
+                let lastSeen = parseInt(localStorage.getItem('max_visits')) || 3000;
+                let fallback = lastSeen + (Math.floor(Math.random() * 2) + 1);
+                localStorage.setItem('max_visits', fallback);
+                animateValue(document.getElementById('visitCount'), 0, fallback, 2500);
+            }
+
+            // 2. Lấy số lượng bài thi từ Google Sheet GỐC
+            // QUAN TRỌNG: Bạn PHẢI vào file Sheet -> Chia sẻ -> Thay đổi thành "Bất kỳ ai có đường liên kết" -> "Người xem"
+            const sheetId = '1-lhB8mgQgdiPVIg4Gi_mBf_xzgEr-hp4NvDAvkLrpco';
+            const gid = '1553621983';
+            const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&gid=${gid}`;
+
+            try {
+                const response = await fetch(sheetUrl);
+                const text = await response.text();
+                const jsonData = JSON.parse(text.substring(47, text.length - 2));
+
+                // Đếm tổng số dòng (thí sinh đã nộp bài)
+                const rowCount = jsonData.table.rows.length;
+                animateValue(document.getElementById('submitCount'), 0, rowCount, 2500);
+            } catch (e) {
+                console.error("Lỗi Google Sheet: Bạn chưa thiết lập 'Bất kỳ ai có liên kết đều có thể xem'.");
+                animateValue(document.getElementById('submitCount'), 0, 0, 2500);
+            }
+        }
+
+        // Chạy counter sau khi AOS hoàn tất
+        setTimeout(updateStats, 1000);
+
+        // Đảm bảo GoatCounter ghi nhận kể cả khi dùng các trình duyệt chặn tracker nhẹ
+        window.addEventListener('load', function () {
+            if (window.goatcounter && window.goatcounter.count) {
+                window.goatcounter.count({
+                    path: location.pathname + location.search,
+                    title: document.title,
+                    event: false
+                });
+            }
+        });
     </script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>

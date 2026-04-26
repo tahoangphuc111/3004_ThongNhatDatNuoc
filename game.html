@@ -4,12 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ô Chữ Lịch Sử Việt Nam | Thống Nhất Đất Nước</title>
+    <title>Hào Khí 30/4 Non SÔng Liền Một Dải</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,700&family=Barlow:wght@400;500;600&display=swap"
         rel="stylesheet">
     <!-- html2canvas for screenshot -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <script data-goatcounter="https://nguyenaimung.goatcounter.com/count" async
+        src="https://gc.zgo.at/count.js"></script>
     <style>
         :root {
             --red: #e8001a;
@@ -737,17 +740,31 @@
 
         .clue-text {
             font-family: 'Barlow', sans-serif;
-            font-size: 1.1rem;
-            line-height: 1.55;
+            font-size: 0.95rem;
+            line-height: 1.4;
             color: var(--text-main);
+            display: none;
+            /* Hide by default */
+            margin-top: 4px;
+        }
+
+        .clue-hint {
+            font-size: 0.75rem;
+            color: var(--gold-mid);
+            font-weight: bold;
+            margin-top: 4px;
             display: none;
             /* Hide by default */
         }
 
-        .clue-item.active .clue-text {
+        .clue-item.active .clue-text,
+        .clue-item.active .clue-hint {
             display: block;
-            /* Show when active */
             animation: fadeIn 0.3s ease;
+        }
+
+        .clue-item.active .clue-text {
+            color: var(--gold);
         }
 
         .footer-org {
@@ -772,55 +789,141 @@
 
             .grid-wrapper {
                 width: 100%;
-                padding: 1rem 0.5rem;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
+                padding: 0.2rem;
+                overflow: hidden;
             }
 
             .crossword-grid {
-                min-width: 1000px;
-                /* Ensure cells are readable/tappable */
-                margin: 0 auto;
+                display: grid !important;
+                /* Calculate cell size: (100vw - padding) / 28 cols */
+                grid-template-columns: repeat(28, calc(95vw / 28)) !important;
+                grid-template-rows: repeat(16, calc(95vw / 28)) !important;
+                gap: 1px !important;
+                width: fit-content !important;
+                margin: 0 auto !important;
+                min-width: unset !important;
+            }
+
+            .cell {
+                width: 100% !important;
+                height: 100% !important;
+                aspect-ratio: 1/1 !important;
+                font-size: calc(60vw / 28) !important;
+                border-radius: 2px;
+                border-width: 0.5px !important;
+            }
+
+            .cell-num {
+                font-size: calc(30vw / 28) !important;
+                top: 0px;
+                left: 1px;
             }
         }
 
         @media (max-width: 768px) {
+            .name-overlay {
+                padding: 10px;
+                overflow-y: auto;
+                align-items: flex-start;
+            }
+
+            .name-box {
+                width: 95%;
+                max-width: 400px;
+                padding: 1.25rem;
+                margin: 20px auto;
+                border-radius: 15px;
+            }
+
             .app-header {
-                padding: 1.5rem 1rem;
+                padding: 1rem 0.5rem;
+            }
+
+            .header-logos {
+                gap: 10px !important;
+                margin-bottom: 0.5rem !important;
             }
 
             .header-logos img {
-                height: 35px;
+                height: 25px !important;
             }
 
             .app-title .title-line-1 {
-                font-size: 1.1rem;
+                font-size: clamp(0.8rem, 4vw, 1.1rem) !important;
+                letter-spacing: 1px !important;
             }
 
             .app-title .title-line-2 {
-                font-size: 1.6rem;
+                font-size: clamp(1.1rem, 6vw, 1.6rem) !important;
+                letter-spacing: 0 !important;
+            }
+
+            .app-subtitle {
+                font-size: 0.6rem !important;
+                letter-spacing: 0 !important;
+            }
+
+            .stats-bar {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 4px;
+                padding: 0.4rem;
             }
 
             .stat-item {
-                min-width: 85px;
-                padding: 0.5rem;
+                min-width: unset !important;
+                padding: 0.3rem !important;
+                flex-direction: row !important;
+                justify-content: center !important;
+                gap: 5px;
             }
 
             .stat-value {
-                font-size: 1.2rem;
+                font-size: 1rem !important;
             }
 
             .stat-label {
-                font-size: 0.55rem;
-                letter-spacing: 1px;
+                font-size: 0.5rem !important;
+                letter-spacing: 0 !important;
+            }
+
+            /* Force no-wrap on critical items */
+            .submit-btn,
+            .btn-glow,
+            .clue-id,
+            .grid-label {
+                white-space: nowrap !important;
             }
 
             .footer-org {
-                font-size: 0.9rem;
+                font-size: 0.8rem;
+                margin-top: 5px;
             }
 
-            .footer-tips {
-                font-size: 0.7rem;
+            /* Modal height safety */
+            .modal-content,
+            .win-modal-inner,
+            .cheat-box {
+                max-height: 85vh;
+                overflow-y: auto;
+                width: 95% !important;
+                padding: 1.2rem !important;
+                margin: 20px auto;
+            }
+        }
+
+        /* Very Small Screens */
+        @media (max-width: 360px) {
+            .stat-label {
+                display: none;
+            }
+
+            .stat-item {
+                gap: 2px;
+            }
+
+            .app-title .title-line-2 {
+                font-size: 1rem !important;
             }
         }
 
@@ -1091,6 +1194,113 @@
             to {
                 opacity: 1
             }
+        }
+
+        /* ── ANSWER MODAL (MOBILE) ── */
+        .answer-modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .85);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 1.5rem;
+        }
+
+        .answer-modal {
+            background: linear-gradient(160deg, #1a0505, #2d0a0a);
+            border: 1px solid var(--b-gold);
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 0 50px rgba(232, 0, 26, .3);
+            animation: modalIn .4s cubic-bezier(.34, 1.56, .64, 1) both;
+        }
+
+        .modal-clue-id {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: var(--red);
+            color: var(--gold);
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            box-shadow: 0 0 15px rgba(232, 0, 26, .5);
+        }
+
+        .modal-clue-text {
+            font-family: 'Barlow', sans-serif;
+            font-size: 1.15rem;
+            line-height: 1.6;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-input {
+            width: 100%;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid var(--b-gold);
+            border-radius: 6px;
+            padding: .9rem 1rem;
+            color: var(--gold);
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+            text-align: center;
+            outline: none;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        .modal-input:focus {
+            border-color: var(--gold-mid);
+            box-shadow: 0 0 15px rgba(240, 168, 0, .2);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: .85rem;
+            border-radius: 4px;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all .2s;
+            text-transform: uppercase;
+        }
+
+        .modal-btn.cancel {
+            background: transparent;
+            border: 1px solid var(--text-dim);
+            color: var(--text-muted);
+        }
+
+        .modal-btn.submit {
+            background: linear-gradient(135deg, var(--red), var(--red-deep));
+            border: none;
+            color: var(--gold);
+        }
+
+        .modal-btn:active {
+            transform: scale(.96);
+        }
+
+        .modal-shake {
+            animation: shake .4s ease;
         }
 
         /* ── SCREENSHOT FLASH ── */
@@ -1530,19 +1740,67 @@
         </div>
     </div>
 
+    <!-- SUCCESS OVERLAY -->
+    <div class="win-overlay" id="success-overlay" style="z-index: 10001; background: rgba(0,0,0,0.95);">
+        <div class="win-modal" style="max-width: 480px; border-color: var(--gold-mid);">
+            <div class="win-flag" style="animation: none;">🏆</div>
+            <div class="win-badge"
+                style="background: rgba(255, 216, 77, 0.1); border-color: var(--gold-mid); color: var(--gold);">HOÀN
+                THÀNH</div>
+            <h2 class="win-title" style="font-size: 1.8rem; margin-top: 10px;">Nộp bài thành công!</h2>
+            <p class="win-player" style="color: var(--text-main); font-size: 1rem; margin: 15px 0;">
+                Cảm ơn <strong><span id="success-player-name"></span></strong> đã tham gia cuộc thi "Hào Khí 30/4".
+            </p>
+
+            <div class="win-quote"
+                style="border-left-color: var(--gold); background: rgba(255, 216, 77, 0.05); text-align: center; border-radius: 4px; margin: 20px 0;">
+                <em style="font-size: 0.95rem;">"Dữ liệu của bạn đã được lưu lại hệ thống."</em>
+            </div>
+
+            <p style="font-size: 0.8rem; color: var(--text-dim); margin-top: 10px; font-style: italic;">
+                (Hệ thống sẽ tự động quay lại trang chủ sau giây lát...)
+            </p>
+
+            <div class="win-actions" style="margin-top: 25px;">
+                <button class="submit-btn" onclick="window.location.href='index.html'" style="min-width: 140px;">Về
+                    trang chủ</button>
+                <button class="submit-btn"
+                    style="background: transparent; border-color: var(--b-gold); color: var(--text-muted); min-width: 140px;"
+                    onclick="document.getElementById('success-overlay').style.display='none'">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ANSWER MODAL (FOR MOBILE) -->
+    <div class="answer-modal-overlay" id="answer-modal">
+        <div class="answer-modal">
+            <div class="modal-clue-id" id="modal-clue-id">1</div>
+            <div class="modal-clue-text" id="modal-clue-text">Câu hỏi sẽ hiển thị ở đây...</div>
+            <input type="text" class="modal-input" id="modal-answer-input" placeholder="Nhập câu trả lời của bạn..."
+                autocomplete="off">
+            <div class="modal-buttons">
+                <button class="modal-btn cancel" onclick="closeAnswerModal()">Đóng</button>
+                <button class="modal-btn submit" onclick="submitModalAnswer()">Kiểm tra</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         let cheatCount = 0; // Biến đếm số lần vi phạm
         let isPaused = false; // Biến kiểm soát trạng thái tạm dừng
         const workUnits = [
-            "THPT Chuyên Thăng Long", "THPT Trần Phú", "THPT Bùi Thị Xuân", "THCS&THPT Tây Sơn", "TT Giaó Dục Thường Xuyên Đà Lạt",
+            "THCS&THPT Tây Sơn (THCS)", "THCS&THPT Tây Sơn (THPT)",
+            "Trường TH Nam Thành", "Trường THCS Phan Chu Trinh", "Trường TH Trưng Vương",
+            "Trường TH Đa Lợi", "Trường TH Mê Linh", "Trường THCS Quang Trung",
+            "Trường THCS Nguyễn Du", "Trường TH Cửu Long", "Trường TH Đoàn Kết",
+            "Trường TH Lê Quý Đôn", "Trường TH Đoàn Thị Điểm", "Trường TH Hùng Vương",
+            "Trường TH An Dương Vương",
+            "THPT Chuyên Thăng Long", "THPT Trần Phú", "THPT Bùi Thị Xuân", "TT Giaó Dục Thường Xuyên Đà Lạt",
             "Đoàn Thanh niên Công an phường", "Chi đoàn Quân sự", "Chi đoàn Paster", "Chi đoàn Trung tâm Y Tế",
             "Chi đoàn Ngân hàng TMCP Đầu tư và Phát triển Việt Nam", "Chi đoàn Ngân hàng Co-op bank (Hợp tác CN Lâm Đồng)",
             "Chi đoàn Công ty cổ phần Dịch vụ Đô thị Đà Lạt", "Chi đoàn cơ sở Y tế khu vực Đà Lạt",
             "Chi đoàn Công ty cổ phần Sài Gòn - Đà Lạt", "Chi đoàn giáo viên Mầm Non 2", "Chi đoàn giáo viên Mầm Non 4",
-            "Chi đoàn giáo viên Mầm Non 10", "Chi đoàn giáo viên TH Nam Thành", "Chi đoàn giáo viên TH Lê Qúy Đôn",
-            "Chi đoàn giáo viên TH Trưng Vương", "Liên Chi đoàn giáo viên TH Hùng Vương và TH Đa Lợi",
-            "Chi đoàn giáo viên TH Mê Linh", "Chi đoàn giáo viên TH An Dương Vương", "Chi đoàn giáo viên Mầm Non Anh Đào",
-            "Chi đoàn giáo viên THCS Quang Trung", "Chi đoàn giáo viên THCS Nguyễn Du", "Chi đoàn giáo viên THCS Phan Chu Trinh",
+            "Chi đoàn giáo viên Mầm Non 10", "Chi đoàn giáo viên Mầm Non Anh Đào",
             "Chi đoàn Thanh niên Tổ dân phố Đồi Dinh", "Chi đoàn Thanh niên Tổ dân phố Nguyễn Văn Trỗi.",
             "Chi đoàn Thanh niên Tổ dân phố Phan Bội Châu.", "Chi đoàn Thanh niên Tổ dân phố Đoàn Kết.",
             "Chi đoàn Thanh niên Tổ dân phố Hòa Bình.", "Chi đoàn Thanh niên Tổ dân phố Nam Kỳ Khởi Nghĩa.",
@@ -1581,7 +1839,7 @@
             "Chi đoàn Thanh niên Tổ dân phố Hồng Lạc", "Chi đoàn Thanh niên Tổ dân phố Phạm Hồng Thái",
             "Chi đoàn Thanh niên Tổ dân phố Trần Hưng Đạo", "Chi đoàn Thanh niên Tổ dân phố Khởi Nghĩa Bắc Sơn",
             "Chi đoàn Thanh niên Tổ dân phố Nhất Thống", "Chi đoàn Thanh niên Tổ dân phố Yersin",
-            "Chi đoàn Thanh niên Tổ dân phố Trần Quang Diệu"
+            "Chi đoàn Thanh niên Tổ dân phố Trần Quang Diệu",
         ];
         document.addEventListener('DOMContentLoaded', () => {
             const inputWork = document.getElementById('input-work');
@@ -1878,7 +2136,8 @@
         /* ============================================================
            GAME DATA
            ============================================================ */
-        const KEY_COL = 12;
+        const KEY_COL = 10;
+        const TOTAL_COLS = 28;
         const _d = s => atob(s).split('').reverse().join('');
         const _e = s => btoa(s.split('').reverse().join(''));
 
@@ -1893,12 +2152,12 @@
             { q: "Vị lãnh tụ kính yêu khai sinh ra nước Việt Nam Dân chủ Cộng hòa. Tên khai sinh là Nguyễn Sinh Cung, khi đi học Người lấy tên là", a: _e("NGUYENTATTHANH"), d: "NGUYỄNTẤTTHÀNH", k: 7 },
             { q: "\"Còn cái lai quần cũng đánh\" là câu nói nổi tiếng của ai?", a: _e("NGUYENTHIUT"), d: "NGUYỄNTHỊÚT", k: 6 },
             { q: "Lực lượng nòng cốt giải phóng miền Nam Việt Nam, đóng vai trò quyết định trong  Chiến dịch Hồ Chí Minh năm 1975, thống nhất đất nước là lực lượng nào?", a: _e("QUANDOI"), d: "QUÂNĐỘI", k: 4 },
-            { q: "Tên bài hát của nhạc sĩ Hoàng Hà nói về niềm vui ngày đại thắng?", a: _e("DATNUOCTRONNIEMVUI"), d: "ĐẤTNƯỚCTRỌNNIỀMVUI", k: 1 },
-            { q: "\"Chiến thắng Xuân Lộc (9–21/4/1975) làm rung chuyển toàn bộ hệ thống phòng thủ của địch xung quanh Sài Gòn...\" Câu nói của ai?", a: _e("DAITUONGVONGUYENGIAP"), d: "ĐẠITƯỚNGVÕNGUYÊNGIÁP", k: 3 },
+            { q: "\"Sự kiện ngày 30/4/1975 diễn ra vào năm âm lịch nào?", a: _e("NAMATMAO"), d: "NĂMẤTMÃO", k: 3 },
+            { q: "Tên bài hát của nhạc sĩ Hoàng Hà nói về niềm vui ngày đại thắng?", a: _e("DATNUOCTRONNIEMVUI"), d: "ĐẤTNƯỚCTRỌNNIỀMVUI", k: 7 },
             { q: "Vị tổng thống cuối cùng của chính quyền Mĩ–Ngụy đã đầu hàng vô điều kiện?", a: _e("DUONGVANMINH"), d: "DƯƠNGVĂNMINH", k: 3 },
             { q: "Lực lượng Quân đội Nhân dân Việt Nam tham chiến trong trận Xuân Lộc do ai làm Tư Lệnh?", a: _e("THIEUTUONGHOANGCAM"), d: "THIẾUTƯỚNGHOÀNGCẦM", k: 6 },
             { q: "Chiến thắng 30/4/1975 đưa Việt Nam bước vào _______, kỷ nguyên vươn mình của dân tộc?", a: _e("KYNGUYENMOI"), d: "KỶNGUYÊNMỚI", k: 9 },
-            { q: "Vùng đất được mệnh danh là 'Đất thép thành đồng' ở cửa ngõ Sài Gòn?", a: _e("CUCHI"), d: "CỦCHI", k: 0 }
+            { q: "Vùng đất được mệnh danh là 'Đất thép thành đồng' ở cửa ngõ Sài Gòn?", a: _e("CUCHI"), d: "CỦCHI", k: 2 }
         ];
 
         let gs = { solvedCount: 0, startTime: null, timerInterval: null, activeCell: null, answers: [], finalTime: '' };
@@ -1922,6 +2181,11 @@
             gs.startTime = Date.now();
             gs.timerInterval = setInterval(updateTimer, 1000);
             document.addEventListener('keydown', handleKey);
+
+            document.getElementById('modal-answer-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') submitModalAnswer();
+            });
+
             setTimeout(() => selectCell(0, 0), 400);
         }
 
@@ -1957,7 +2221,7 @@
         //     }
         // }
         function renderGrid(container) {
-            const totalCols = 30;
+            const totalCols = TOTAL_COLS;
             // Dùng minmax(0, 1fr) để 30 cột không bị giãn bởi nội dung
             container.style.gridTemplateColumns = `repeat(${totalCols}, minmax(0, 1fr))`;
             container.style.width = '100%';
@@ -1998,10 +2262,76 @@
             gs.answers.forEach((ans, idx) => {
                 const div = document.createElement('div');
                 div.className = 'clue-item'; div.id = `clue-${idx}`;
-                div.innerHTML = `<div class="clue-id">${idx + 1}</div><div class="clue-text">${ans.question}</div>`;
+                div.innerHTML = `
+                    <div class="clue-id">${idx + 1}</div>
+                    <div style="flex:1">
+                        <div class="clue-text">${ans.question}</div>
+                        <div class="clue-hint">(${ans.plain.length} chữ cái)</div>
+                    </div>`;
                 div.addEventListener('click', () => selectCell(idx, 0));
                 container.appendChild(div);
             });
+        }
+
+        function openAnswerModal(row) {
+            const rd = gs.answers[row];
+            if (rd.solved) return;
+
+            document.getElementById('modal-clue-id').textContent = row + 1;
+            document.getElementById('modal-clue-text').innerHTML = `
+                ${rd.question}<br>
+                <span style="color: var(--gold-mid); font-size: 0.9rem; font-weight: bold;">
+                    (Đáp án gồm ${rd.plain.length} chữ cái - Không dấu cách)
+                </span>`;
+            const input = document.getElementById('modal-answer-input');
+            input.value = '';
+            document.getElementById('answer-modal').style.display = 'flex';
+            input.focus();
+        }
+
+        function closeAnswerModal() {
+            document.getElementById('answer-modal').style.display = 'none';
+        }
+
+        function submitModalAnswer() {
+            const row = gs.activeCell.row;
+            const rd = gs.answers[row];
+            const input = document.getElementById('modal-answer-input');
+            const userVal = input.value.trim();
+
+            if (!userVal) return;
+
+            const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s/g, '').toUpperCase();
+
+            if (norm(userVal) === norm(rd.plain)) {
+                // Correct!
+                rd.solved = true; gs.solvedCount++;
+                document.getElementById('solved-count').textContent = gs.solvedCount;
+
+                const sfx = document.getElementById('sfx-correct');
+                if (sfx) { sfx.currentTime = 0; sfx.play().catch(() => { }); }
+
+                for (let i = 0; i < rd.plain.length; i++) {
+                    const cell = document.getElementById(`cell-${row}-${i}`);
+                    cell.textContent = rd.display[i];
+                    cell.classList.add('correct');
+                    cell.classList.remove('active', 'filled', 'row-active');
+                }
+                document.getElementById(`clue-${row}`).classList.add('solved');
+
+                const left = QUESTIONS_DATA.length - gs.solvedCount;
+                document.getElementById('status-text').textContent = left > 0 ? `Còn ${left} câu` : 'Hoàn thành!';
+
+                closeAnswerModal();
+                if (gs.solvedCount === QUESTIONS_DATA.length) setTimeout(victory, 600);
+            } else {
+                // Incorrect
+                const modal = document.querySelector('.answer-modal');
+                modal.classList.add('modal-shake');
+                setTimeout(() => modal.classList.remove('modal-shake'), 400);
+                input.style.borderColor = 'var(--red)';
+                setTimeout(() => input.style.borderColor = 'var(--b-gold)', 1000);
+            }
         }
 
         function selectCell(row, index) {
@@ -2032,7 +2362,12 @@
             // Focus hidden input for mobile keyboard
             const kbInput = document.getElementById('mobile-keyboard-input');
             if (kbInput) {
-                kbInput.focus();
+                // Auto open modal on mobile instead of using virtual keyboard input
+                if (window.innerWidth <= 768) {
+                    openAnswerModal(row);
+                } else {
+                    kbInput.focus();
+                }
                 // Scroll back to the cell because focus() might jump the page
                 cell.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             }
@@ -2132,67 +2467,84 @@
            SUBMIT — Screenshot + Google Form redirect
            ============================================================ */
         async function submitResult() {
-            const valName = document.getElementById('input-name').value;
-            const valWork = document.getElementById('input-work').value;
-            const valPhone = document.getElementById('input-phone').value;
             const btn = document.getElementById('submit-btn');
             btn.disabled = true;
-            btn.classList.add('capturing');
-            btn.textContent = '📸 Đang chụp...';
+            btn.textContent = '🚀 Đang nộp bài...';
 
-            // Flash effect
-            const flash = document.getElementById('ss-flash');
-            flash.classList.add('flash');
-            setTimeout(() => flash.classList.remove('flash'), 300);
+            // 1. Copy result text to clipboard (Quick)
+            const resultText = `Họ tên: ${playerName} | Thời gian: ${gs.finalTime} | Ô Chữ Lịch Sử 30/4/1975`;
+            try { await navigator.clipboard.writeText(resultText); } catch (e) { }
 
+            // 2. Prepare Google Form submission
+            const formBase = 'https://docs.google.com/forms/d/e/1FAIpQLScSsI04Ar2CYI-DHzZKJHqdY5MLiL6-8LA5yOfeTgEVnXLKgw/formResponse';
+            const params = new URLSearchParams({
+                'entry.100118172': playerName,
+                'entry.650219245': gs.finalTime,
+                'entry.1395088575': playerWork,
+                'entry.409627555': playerPhone
+            });
+
+            // 3. Try to capture screenshot in background (Non-blocking)
+            // Added delay to ensure modal is fully rendered
+            setTimeout(async () => {
+                try {
+                    const fireworks = document.getElementById('fireworks');
+                    if (fireworks) fireworks.style.opacity = '0';
+
+                    const target = document.getElementById('win-modal-inner');
+                    const canvas = await html2canvas(target, {
+                        backgroundColor: '#180400',
+                        scale: 1, // Lower scale for better mobile compatibility
+                        useCORS: true,
+                        allowTaint: false,
+                        logging: false,
+                        imageTimeout: 15000 // Increase timeout for slow mobile networks
+                    });
+
+                    if (fireworks) fireworks.style.opacity = '1';
+
+                    const dataUrl = canvas.toDataURL('image/png');
+                    if (dataUrl && dataUrl.length > 1000) {
+                        const link = document.createElement('a');
+                        link.download = `ochulisu_${playerName.replace(/\s+/g, '_')}_${gs.finalTime.replace(':', '-')}.png`;
+                        link.href = dataUrl;
+                        link.click();
+                    }
+                } catch (e) {
+                    console.warn("Screenshot capture skipped or failed:", e);
+                    const fireworks = document.getElementById('fireworks');
+                    if (fireworks) fireworks.style.opacity = '1';
+                }
+            }, 800);
+
+            // 4. Perform main submission
             try {
-                // Take screenshot of the win modal
-                const target = document.getElementById('win-modal-inner');
-                const canvas = await html2canvas(target, {
-                    backgroundColor: '#180400',
-                    scale: 2,
-                    useCORS: true,
-                    allowTaint: true,
-                    logging: false
+                await fetch(formBase, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    body: params
                 });
 
-                // Download screenshot
-                const link = document.createElement('a');
-                link.download = `ochulisu_${playerName.replace(/\s+/g, '_')}_${gs.finalTime.replace(':', '-')}.png`;
-                link.href = canvas.toDataURL('image/png');
-                link.click();
+                btn.textContent = '✅ Đã nộp thành công!';
 
-                // Copy result text to clipboard
-                const resultText = `Họ tên: ${playerName} | Thời gian: ${gs.finalTime} | Ô Chữ Lịch Sử 30/4/1975`;
-                try { await navigator.clipboard.writeText(resultText); } catch (e) { }
-
-                // Redirect to Google Form (mock URL — thay bằng link thật của bạn)
-                // Các entry.XXXXXXX là field ID từ Google Form của bạn
-                const formBase = 'https://docs.google.com/forms/d/e/1FAIpQLScSsI04Ar2CYI-DHzZKJHqdY5MLiL6-8LA5yOfeTgEVnXLKgw/viewform';
-                console.log("Tên người chơi là:", playerName);
-                const params = new URLSearchParams({
-                    'entry.100118172': playerName,
-                    'entry.650219245': gs.finalTime,
-                    'entry.1395088575': playerWork,
-                    'entry.409627555': playerPhone
-                });
-
-                btn.textContent = '🚀 Chuyển tới Form...';
+                // Show success overlay and redirect
                 setTimeout(() => {
-                    window.open(`${formBase}?${params.toString()}`, '_blank');
-                    btn.disabled = false;
-                    btn.classList.remove('capturing');
-                    btn.textContent = '✅ Đã nộp bài!';
-                }, 800);
+                    document.getElementById('win-modal').style.display = 'none';
+                    const successName = document.getElementById('success-player-name');
+                    if (successName) successName.textContent = playerName;
+                    document.getElementById('success-overlay').style.display = 'flex';
+
+                    // Auto redirect after 4 seconds
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 4000);
+                }, 500);
 
             } catch (err) {
-                // Fallback nếu html2canvas lỗi
-                const resultText = `Họ tên: ${playerName} | Thời gian: ${gs.finalTime} | Ô Chữ Lịch Sử 30/4/1975`;
-                try { await navigator.clipboard.writeText(resultText); } catch (e) { }
+                console.error("Submission failed:", err);
+                alert("Lỗi kết nối: Không thể gửi kết quả. Vui lòng kiểm tra mạng và thử lại.");
                 btn.disabled = false;
-                btn.classList.remove('capturing');
-                btn.textContent = '📋 Đã copy kết quả!';
-                alert(`Không thể chụp màn hình tự động.\nKết quả đã được copy:\n\n${resultText}\n\nVui lòng paste vào Google Form thủ công.`);
+                btn.textContent = '📸 Thử lại';
             }
         }
 
@@ -2233,6 +2585,7 @@
             tick();
         }
     </script>
+    <div class="screenshot-flash" id="screenshot-flash"></div>
 </body>
 
 </html>
