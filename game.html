@@ -1246,18 +1246,28 @@
 
         .modal-input {
             width: 100%;
-            background: rgba(255, 255, 255, .05);
+            height: 50px !important;
+            background-color: #1a0505 !important;
             border: 1px solid var(--b-gold);
-            border-radius: 6px;
-            padding: .9rem 1rem;
-            color: var(--gold);
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.3rem;
-            letter-spacing: 2px;
+            border-radius: 8px;
+            padding: 0 15px !important;
+            color: #ffd84d !important;
+            -webkit-text-fill-color: #ffd84d !important;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+            font-size: 18px !important;
             text-align: center;
             outline: none;
             margin-bottom: 1.5rem;
-            text-transform: uppercase;
+            -webkit-appearance: none;
+            display: block !important;
+            position: relative;
+            z-index: 10001;
+            opacity: 1 !important;
+            -webkit-user-select: text !important;
+        }
+
+        .modal-input:focus::placeholder {
+            color: transparent !important;
         }
 
         .modal-input:focus {
@@ -1777,7 +1787,7 @@
             <div class="modal-clue-id" id="modal-clue-id">1</div>
             <div class="modal-clue-text" id="modal-clue-text">Câu hỏi sẽ hiển thị ở đây...</div>
             <input type="text" class="modal-input" id="modal-answer-input" placeholder="Nhập câu trả lời của bạn..."
-                autocomplete="off">
+                autocomplete="off" autocapitalize="characters" autocorrect="off" spellcheck="false">
             <div class="modal-buttons">
                 <button class="modal-btn cancel" onclick="closeAnswerModal()">Đóng</button>
                 <button class="modal-btn submit" onclick="submitModalAnswer()">Kiểm tra</button>
@@ -2182,8 +2192,12 @@
             gs.timerInterval = setInterval(updateTimer, 1000);
             document.addEventListener('keydown', handleKey);
 
-            document.getElementById('modal-answer-input').addEventListener('keypress', (e) => {
+            const modalInput = document.getElementById('modal-answer-input');
+            modalInput.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') submitModalAnswer();
+            });
+            modalInput.addEventListener('input', function() {
+                this.value = this.value.toUpperCase();
             });
 
             setTimeout(() => selectCell(0, 0), 400);
@@ -2301,7 +2315,12 @@
 
             if (!userVal) return;
 
-            const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s/g, '').toUpperCase();
+            const norm = s => s.normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/đ/g, 'd')
+                .replace(/Đ/g, 'D')
+                .replace(/\s/g, '')
+                .toUpperCase();
 
             if (norm(userVal) === norm(rd.plain)) {
                 // Correct!
@@ -2374,6 +2393,12 @@
         }
 
         function handleKey(e) {
+            // Ignore if typing in an input field (like the modal or name inputs)
+            if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) {
+                // However, allow the hidden mobile input to work if that's how the game handles it
+                if (e.target.id !== 'mobile-keyboard-input') return;
+            }
+
             if (!gs.activeCell) return;
             const { row, index } = gs.activeCell;
             const rd = gs.answers[row];
@@ -2414,7 +2439,12 @@
                 cell.childNodes.forEach(n => { if (n.nodeType === Node.TEXT_NODE) txt += n.textContent; });
                 userAns += txt;
             }
-            const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s/g, '').toUpperCase();
+            const norm = s => s.normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .replace(/đ/g, 'd')
+                .replace(/Đ/g, 'D')
+                .replace(/\s/g, '')
+                .toUpperCase();
             if (norm(userAns) === norm(rd.plain)) {
                 rd.solved = true; gs.solvedCount++;
                 document.getElementById('solved-count').textContent = gs.solvedCount;
