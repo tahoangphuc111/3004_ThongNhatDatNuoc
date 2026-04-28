@@ -2148,26 +2148,37 @@
            ============================================================ */
         const KEY_COL = 10;
         const TOTAL_COLS = 28;
-        const _d = s => atob(s).split('').reverse().join('');
-        const _e = s => btoa(s.split('').reverse().join(''));
+
+        const normAnswer = s => s.normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/đ/g, 'd').replace(/Đ/g, 'D')
+            .replace(/\s/g, '').toUpperCase();
+
+        async function sha256(str) {
+            const buf = await crypto.subtle.digest(
+                'SHA-256',
+                new TextEncoder().encode(str)
+            );
+            return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+        }
 
         const QUESTIONS_DATA = [
-            { q: "Chiến dịch mở màn cho đại thắng mùa xuân 1975?", a: _e("CHIENDICHTAYNGUYEN"), d: "CHIẾNDỊCHTÂYNGUYÊN", k: 9 },
-            { q: "Tên ngôi trường đồng chí Trần Phú đã theo học trung học là?", a: _e("QUOCHOCHUE"), d: "QUỐCHỌCHUẾ", k: 4 },
-            { q: "Tỉnh cuối cùng của miền Nam được giải phóng trong cuộc Tổng tiến công xuân 1975?", a: _e("TINHCHAUDOC"), d: "TỈNHCHÂUĐỐC", k: 9 },
-            { q: "Thành phố nào được giải phóng vào ngày 30/4/1975?", a: _e("SAIGON"), d: "SÀIGÒN", k: 5 },
-            { q: "Tên tác giả bài hát \"Đất nước trọn niềm vui\"?", a: _e("NHACSIHOANGHA"), d: "NHẠCSĨHOÀNGHÀ", k: 10 },
-            { q: "Sau khi thất thủ ở Tây Nguyên, Huế, Đà Nẵng, địch phải lui về phòng thủ ở đâu?", a: _e("PHANRANG"), d: "PHANRANG", k: 3 },
-            { q: "Chiến dịch quyết định giải phóng Sài Gòn mang tên vị lãnh tụ nào?", a: _e("HOCHIMINH"), d: "HỒCHÍMINH", k: 3 },
-            { q: "Vị lãnh tụ kính yêu khai sinh ra nước Việt Nam Dân chủ Cộng hòa. Tên khai sinh là Nguyễn Sinh Cung, khi đi học Người lấy tên là", a: _e("NGUYENTATTHANH"), d: "NGUYỄNTẤTTHÀNH", k: 7 },
-            { q: "\"Còn cái lai quần cũng đánh\" là câu nói nổi tiếng của ai?", a: _e("NGUYENTHIUT"), d: "NGUYỄNTHỊÚT", k: 6 },
-            { q: "Lực lượng nòng cốt giải phóng miền Nam Việt Nam, đóng vai trò quyết định trong  Chiến dịch Hồ Chí Minh năm 1975, thống nhất đất nước là lực lượng nào?", a: _e("QUANDOI"), d: "QUÂNĐỘI", k: 4 },
-            { q: "\"Sự kiện ngày 30/4/1975 diễn ra vào năm âm lịch nào?", a: _e("NAMATMAO"), d: "NĂMẤTMÃO", k: 3 },
-            { q: "Tên bài hát của nhạc sĩ Hoàng Hà nói về niềm vui ngày đại thắng?", a: _e("DATNUOCTRONNIEMVUI"), d: "ĐẤTNƯỚCTRỌNNIỀMVUI", k: 7 },
-            { q: "Vị tổng thống cuối cùng của chính quyền Mĩ–Ngụy đã đầu hàng vô điều kiện?", a: _e("DUONGVANMINH"), d: "DƯƠNGVĂNMINH", k: 3 },
-            { q: "Lực lượng Quân đội Nhân dân Việt Nam tham chiến trong trận Xuân Lộc do ai làm Tư Lệnh?", a: _e("THIEUTUONGHOANGCAM"), d: "THIẾUTƯỚNGHOÀNGCẦM", k: 6 },
-            { q: "Chiến thắng 30/4/1975 đưa Việt Nam bước vào _______, kỷ nguyên vươn mình của dân tộc?", a: _e("KYNGUYENMOI"), d: "KỶNGUYÊNMỚI", k: 9 },
-            { q: "Vùng đất được mệnh danh là 'Đất thép thành đồng' ở cửa ngõ Sài Gòn?", a: _e("CUCHI"), d: "CỦCHI", k: 2 }
+            { q: "Chiến dịch mở màn cho đại thắng mùa xuân 1975?",                                                                                                          h: "73b7af6e1a366b0786e8ef0d4a8934f0ac42287b193fe83093a605e4b7b8caec", d: "CHIẾNDỊCHTÂYNGUYÊN",   k: 9  },
+            { q: "Tên ngôi trường đồng chí Trần Phú đã theo học trung học là?",                                                                                              h: "6ea328024c3b4de06df60396bf09f7c5bff339e0b65e461e94895acacca3e88b", d: "QUỐCHỌCHUẾ",           k: 4  },
+            { q: "Tỉnh cuối cùng của miền Nam được giải phóng trong cuộc Tổng tiến công xuân 1975?",                                                                          h: "51ae8cbb2b22aa28c52ad2ccf4f95cf3794b9010e3029e948b94006d3bdd63bd", d: "TỈNHCHÂUĐỐC",          k: 9  },
+            { q: "Thành phố nào được giải phóng vào ngày 30/4/1975?",                                                                                                        h: "00957d50c6426faa4bffc37a48f8d03739ade9b968480042b7cf7729f4574ab3", d: "SÀIGÒN",               k: 5  },
+            { q: "Tên tác giả bài hát \"Đất nước trọn niềm vui\"?",                                                                                                          h: "74388959d034aeea2a0b372f5401dc2c4dcda91c5ce40e707dc961dd001f1183", d: "NHẠCSĨHOÀNGHÀ",        k: 10 },
+            { q: "Sau khi thất thủ ở Tây Nguyên, Huế, Đà Nẵng, địch phải lui về phòng thủ ở đâu?",                                                                           h: "f73f8cd741db21c0f52248dcd71e0dcdf8026ae4b6cef259246bf3c25e7f5a09", d: "PHANRANG",              k: 3  },
+            { q: "Chiến dịch quyết định giải phóng Sài Gòn mang tên vị lãnh tụ nào?",                                                                                       h: "466837700f1e24939306d4e8e3354647d862f772cebdabc70b2304efd2606d52", d: "HỒCHÍMINH",             k: 3  },
+            { q: "Vị lãnh tụ kính yêu khai sinh ra nước Việt Nam Dân chủ Cộng hòa. Tên khai sinh là Nguyễn Sinh Cung, khi đi học Người lấy tên là",                           h: "0a9294a8ce5ed9f9cd10d1547ecf45c19fb19c456ea3cf42a7b79b3d95956ff3", d: "NGUYỄNTẤTTHÀNH",       k: 7  },
+            { q: "\"Còn cái lai quần cũng đánh\" là câu nói nổi tiếng của ai?",                                                                                              h: "999eeb4753dbfc769180b87cb11e548e922fc4f236d6d957d2c43c0f730db865", d: "NGUYỄNTHỊÚT",          k: 6  },
+            { q: "Lực lượng nòng cốt giải phóng miền Nam Việt Nam, đóng vai trò quyết định trong Chiến dịch Hồ Chí Minh năm 1975, thống nhất đất nước là lực lượng nào?",    h: "f32993fb9f403041e78d69046bcd90a4a1dde3dc57a5d627727fe47da4c399e3", d: "QUÂNĐỘI",              k: 4  },
+            { q: "Sự kiện ngày 30/4/1975 diễn ra vào năm âm lịch nào?",                                                                                                     h: "ca08db811d0c31b1cc58552077107782784cabcf6c057617d306a75e0df82ed3", d: "NĂMẤTMÃO",             k: 3  },
+            { q: "Tên bài hát của nhạc sĩ Hoàng Hà nói về niềm vui ngày đại thắng?",                                                                                        h: "e37130341fa4b2fdf937d2e2e9ca78ff1dc056434365ab6b5a600d74908b6038", d: "ĐẤTNƯỚCTRỌNNIỀMVUI",   k: 7  },
+            { q: "Vị tổng thống cuối cùng của chính quyền Mĩ–Ngụy đã đầu hàng vô điều kiện?",                                                                               h: "3c00da0ea85c54049bd0a2fc67a7352f4578ae5e6d48b05df2543e98437291c9", d: "DƯƠNGVĂNMINH",         k: 3  },
+            { q: "Lực lượng Quân đội Nhân dân Việt Nam tham chiến trong trận Xuân Lộc do ai làm Tư Lệnh?",                                                                   h: "4b12418f8f13527d4dea8ff6dabaea6ffd38b41060f4965bcd2f46e0852bce27", d: "THIẾUTƯỚNGHOÀNGCẦM",  k: 6  },
+            { q: "Chiến thắng 30/4/1975 đưa Việt Nam bước vào _______, kỷ nguyên vươn mình của dân tộc?",                                                                    h: "7e94486075624a5fbd30f73e00a04ed61de22496b0e63a8c3708204f80ee193b", d: "KỶNGUYÊNMỚI",          k: 9  },
+            { q: "Vùng đất được mệnh danh là 'Đất thép thành đồng' ở cửa ngõ Sài Gòn?",                                                                                     h: "1a92a2f3f2a7621d6b61fe34d4c8a9f95ea978cb1bf934ac5db0b75cb13e698f", d: "CỦCHI",                k: 2  }
         ];
 
         let gs = { solvedCount: 0, startTime: null, timerInterval: null, activeCell: null, answers: [], finalTime: '' };
@@ -2181,8 +2192,9 @@
             gridEl.innerHTML = ''; clueEl.innerHTML = '';
 
             gs.answers = QUESTIONS_DATA.map(item => ({
-                plain: _d(item.a), display: item.d, question: item.q,
-                keyIndex: item.k, solved: false, startCol: KEY_COL - item.k
+                hash: item.h, display: item.d, question: item.q,
+                len: item.d.length, keyIndex: item.k,
+                solved: false, startCol: KEY_COL - item.k
             }));
 
             renderGrid(gridEl);
@@ -2252,7 +2264,7 @@
                 const row = gs.answers[r];
                 for (let c = 0; c < totalCols; c++) {
                     const ci = c - row.startCol;
-                    if (ci >= 0 && ci < row.plain.length) {
+                    if (ci >= 0 && ci < row.len) {
                         const cell = document.createElement('div');
                         cell.className = 'cell'; // Đảm bảo class này trùng với CSS bên dưới
                         if (c === KEY_COL) cell.classList.add('key');
@@ -2280,7 +2292,7 @@
                     <div class="clue-id">${idx + 1}</div>
                     <div style="flex:1">
                         <div class="clue-text">${ans.question}</div>
-                        <div class="clue-hint">(${ans.plain.length} chữ cái)</div>
+                        <div class="clue-hint">(${ans.len} chữ cái)</div>
                     </div>`;
                 div.addEventListener('click', () => selectCell(idx, 0));
                 container.appendChild(div);
@@ -2295,7 +2307,7 @@
             document.getElementById('modal-clue-text').innerHTML = `
                 ${rd.question}<br>
                 <span style="color: var(--gold-mid); font-size: 0.9rem; font-weight: bold;">
-                    (Đáp án gồm ${rd.plain.length} chữ cái - Không dấu cách)
+                    (Đáp án gồm ${rd.len} chữ cái - Không dấu cách)
                 </span>`;
             const input = document.getElementById('modal-answer-input');
             input.value = '';
@@ -2307,7 +2319,7 @@
             document.getElementById('answer-modal').style.display = 'none';
         }
 
-        function submitModalAnswer() {
+        async function submitModalAnswer() {
             const row = gs.activeCell.row;
             const rd = gs.answers[row];
             const input = document.getElementById('modal-answer-input');
@@ -2315,22 +2327,16 @@
 
             if (!userVal) return;
 
-            const norm = s => s.normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, '')
-                .replace(/đ/g, 'd')
-                .replace(/Đ/g, 'D')
-                .replace(/\s/g, '')
-                .toUpperCase();
+            const userHash = await sha256(normAnswer(userVal));
 
-            if (norm(userVal) === norm(rd.plain)) {
-                // Correct!
+            if (userHash === rd.hash) {
                 rd.solved = true; gs.solvedCount++;
                 document.getElementById('solved-count').textContent = gs.solvedCount;
 
                 const sfx = document.getElementById('sfx-correct');
                 if (sfx) { sfx.currentTime = 0; sfx.play().catch(() => { }); }
 
-                for (let i = 0; i < rd.plain.length; i++) {
+                for (let i = 0; i < rd.len; i++) {
                     const cell = document.getElementById(`cell-${row}-${i}`);
                     cell.textContent = rd.display[i];
                     cell.classList.add('correct');
@@ -2344,7 +2350,6 @@
                 closeAnswerModal();
                 if (gs.solvedCount === QUESTIONS_DATA.length) setTimeout(victory, 600);
             } else {
-                // Incorrect
                 const modal = document.querySelector('.answer-modal');
                 modal.classList.add('modal-shake');
                 setTimeout(() => modal.classList.remove('modal-shake'), 400);
@@ -2413,7 +2418,7 @@
                 if (index > 0) selectCell(row, index - 1);
                 return;
             }
-            if (e.key === 'ArrowRight') { if (index < rd.plain.length - 1) selectCell(row, index + 1); return; }
+            if (e.key === 'ArrowRight') { if (index < rd.len - 1) selectCell(row, index + 1); return; }
             if (e.key === 'ArrowLeft') { if (index > 0) selectCell(row, index - 1); return; }
             if (e.key === 'ArrowDown') { moveNext(); return; }
             if (e.key === 'Enter') { checkRow(row); return; }
@@ -2425,38 +2430,33 @@
                 cell.textContent = e.key.toUpperCase();
                 if (num) cell.appendChild(num);
                 cell.classList.add('filled');
-                if (index < rd.plain.length - 1) selectCell(row, index + 1);
+                if (index < rd.len - 1) selectCell(row, index + 1);
                 else checkRow(row);
             }
         }
 
-        function checkRow(row) {
+        async function checkRow(row) {
             const rd = gs.answers[row]; if (rd.solved) return;
             let userAns = '';
-            for (let i = 0; i < rd.plain.length; i++) {
+            for (let i = 0; i < rd.len; i++) {
                 const cell = document.getElementById(`cell-${row}-${i}`);
                 let txt = '';
                 cell.childNodes.forEach(n => { if (n.nodeType === Node.TEXT_NODE) txt += n.textContent; });
                 userAns += txt;
             }
-            const norm = s => s.normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, '')
-                .replace(/đ/g, 'd')
-                .replace(/Đ/g, 'D')
-                .replace(/\s/g, '')
-                .toUpperCase();
-            if (norm(userAns) === norm(rd.plain)) {
+
+            const userHash = await sha256(normAnswer(userAns));
+            if (userHash === rd.hash) {
                 rd.solved = true; gs.solvedCount++;
                 document.getElementById('solved-count').textContent = gs.solvedCount;
 
-                // Play correct SFX
                 const sfx = document.getElementById('sfx-correct');
                 if (sfx) {
                     sfx.currentTime = 0;
                     sfx.play().catch(e => console.log("SFX play blocked", e));
                 }
 
-                for (let i = 0; i < rd.plain.length; i++) {
+                for (let i = 0; i < rd.len; i++) {
                     const cell = document.getElementById(`cell-${row}-${i}`);
                     cell.textContent = rd.display[i];
                     cell.classList.add('correct'); cell.classList.remove('active', 'filled', 'row-active');
